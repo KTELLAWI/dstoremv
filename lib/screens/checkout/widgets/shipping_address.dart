@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:country_pickers/country.dart' as picker_country;
 import 'package:country_pickers/country_pickers.dart' as picker;
@@ -494,96 +496,81 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
                         if (currentFieldType == AddressFieldType.phoneNumber &&
                             kPhoneNumberConfig.enablePhoneNumberValidation) {
-                          return Row(
-                            children:[
-
-                              InternationalPhoneNumberInput(
-                            /// Auto focus first field if it's empty.
-                            autoFocus: index == 0 &&
-                                (currentFieldController?.text.isEmpty ?? false),
-                            textFieldController: currentFieldController,
-                            focusNode: currentFieldFocusNode,
-                            isReadOnly: isFieldReadOnly(index),
-                            autofillHints: currentFieldType.autofillHint != null
-                                ? ['${currentFieldType.autofillHint}']
-                                : null,
-                            inputDecoration: InputDecoration(
-                              labelText: getFieldLabel(currentFieldType),
+                          return Row(children: [
+                            InternationalPhoneNumberInput(
+                              /// Auto focus first field if it's empty.
+                              autoFocus: index == 0 &&
+                                  (currentFieldController?.text.isEmpty ??
+                                      false),
+                              textFieldController: currentFieldController,
+                              focusNode: currentFieldFocusNode,
+                              isReadOnly: isFieldReadOnly(index),
+                              autofillHints:
+                                  currentFieldType.autofillHint != null
+                                      ? ['${currentFieldType.autofillHint}']
+                                      : null,
+                              inputDecoration: InputDecoration(
+                                labelText: getFieldLabel(currentFieldType),
+                              ),
+                              keyboardType: getKeyboardType(currentFieldType),
+                              keyboardAction: hasNext
+                                  ? TextInputAction.next
+                                  : TextInputAction.done,
+                              onFieldSubmitted: (_) {
+                                if (hasNext) {
+                                  nextFieldFocus?.requestFocus();
+                                }
+                              },
+                              onSaved: (value) {
+                                onTextFieldSaved(
+                                  value.phoneNumber,
+                                  currentFieldType,
+                                );
+                              },
+                              onInputChanged: (PhoneNumber number) {},
+                              onInputValidated: (value) => {},
+                              spaceBetweenSelectorAndTextField: 0,
+                              selectorConfig: SelectorConfig(
+                                enable:
+                                    kPhoneNumberConfig.useInternationalFormat,
+                                showFlags: kPhoneNumberConfig.showCountryFlag,
+                                selectorType: kPhoneNumberConfig.selectorType,
+                                setSelectorButtonAsPrefixIcon:
+                                    kPhoneNumberConfig.selectorFlagAsPrefixIcon,
+                                leadingPadding: 0,
+                                trailingSpace: false,
+                              ),
+                              selectorTextStyle:
+                                  Theme.of(context).textTheme.titleMedium,
+                              ignoreBlank: !(_configs[index]?.required ?? true),
+                              initialValue: initialPhoneNumber,
+                              formatInput: kPhoneNumberConfig.formatInput,
+                              countries: kPhoneNumberConfig.customCountryList,
+                              locale: langCode,
+                              searchBoxDecoration: InputDecoration(
+                                  labelText: S
+                                      .of(context)
+                                      .searchByCountryNameOrDialCode),
                             ),
-                            keyboardType: getKeyboardType(currentFieldType),
-                            keyboardAction: hasNext
-                                ? TextInputAction.next
-                                : TextInputAction.done,
-                            onFieldSubmitted: (_) {
-                              if (hasNext) {
-                                nextFieldFocus?.requestFocus();
-                              }
-                            },
-                            onSaved: (value) {
-                              onTextFieldSaved(
-                                value.phoneNumber,
-                                currentFieldType,
-                              );
-                            },
-                            onInputChanged: (PhoneNumber number) {},
-                            onInputValidated: (value) => {},
-                            spaceBetweenSelectorAndTextField: 0,
-                            selectorConfig: SelectorConfig(
-                              enable: kPhoneNumberConfig.useInternationalFormat,
-                              showFlags: kPhoneNumberConfig.showCountryFlag,
-                              selectorType: kPhoneNumberConfig.selectorType,
-                              setSelectorButtonAsPrefixIcon:
-                                  kPhoneNumberConfig.selectorFlagAsPrefixIcon,
-                              leadingPadding: 0,
-                              trailingSpace: false,
-                            ),
-                            selectorTextStyle:
-                                Theme.of(context).textTheme.titleMedium,
-                            ignoreBlank: !(_configs[index]?.required ?? true),
-                            initialValue: initialPhoneNumber,
-                            formatInput: kPhoneNumberConfig.formatInput,
-                            countries: kPhoneNumberConfig.customCountryList,
-                            locale: langCode,
-                            searchBoxDecoration: InputDecoration(
-                                labelText: S
-                                    .of(context)
-                                    .searchByCountryNameOrDialCode),
- 
-                         ),
-  SizedBox(width: 10),
-              isVerified
-                  ? Row(
-                      children: [
-                        Icon(Icons.check, color: Colors.green),
-                        Text('Verified', style: TextStyle(color: Colors.green)),
-                      ],
-                    )
-                  : Row(
-                      children: [
-                        Icon(Icons.clear, color: Colors.red),
-                        Text('Not Verified', style: TextStyle(color: Colors.red)),
-                      ],
-                    ),
-            ],
-          );
-SizedBox(height: 20),
-!isVerified
-          ElevatedButton(
-            onPressed: () {
-              // Perform phone number verification logic here
-              // For demonstration purposes, setting isVerified to true
-              setState(() {
-                ///show dialog process
-                isVerified = true;
-              });
-            },
-            child: Text('Verify'),
-          ),
-
-
-                            ]
-                          )
-                          
+                            SizedBox(width: 10),
+                            isVerified
+                                ? Row(
+                                    children: [
+                                      Icon(Icons.check, color: Colors.green),
+                                      Text('Verified',
+                                          style:
+                                              TextStyle(color: Colors.green)),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      Icon(Icons.clear, color: Colors.red),
+                                      Text('Not Verified',
+                                          style: TextStyle(color: Colors.red)),
+                                    ],
+                                  ),
+                          ]
+                          );
                         }
 
                         return TextFormField(
@@ -623,7 +610,25 @@ SizedBox(height: 20),
                           ),
                         );
                       },
+
+                    )..add(
+        SizedBox(height: 20),
+if (!isVerified)
+  ElevatedButton(
+    onPressed: () {
+      // Perform phone number verification logic here
+      // For demonstration purposes, setting isVerified to true
+      setState(() {
+        ///show dialog process
+        isVerified = true;
+      });
+    },
+    child: Text('Verify'),
+  ),
+
+                   
                     ),
+
                   ),
                 ),
               ),
