@@ -3,18 +3,22 @@ Map<String, dynamic> environment = {
   "appConfig": "lib/config/config_en.json",
   "serverConfig": {
     'type': 'wcfm',
+   "url": "https://inpaket.com",
+    "type": "woo",
+    "consumerKey": "ck_fb37943cc148765fdbd5246e6a063f745c48b12e",
+    "consumerSecret": "cs_3d251690870957540c40ccf4fa8be4015a870ccb"
 
     /// 🌍 The register URL domain that matches with Envato Purchase Code
     /// 🔑 Also, make sure to update the envatoPurchaseCode from configs/env.properties
-    'url': 'https://wclovers.mstore.io',
+    // 'url': 'https://wclovers.mstore.io',
 
-    'consumerKey': 'ck_cf6b2a2966f2d908cc08ebaef1336b15f9a6697c',
-    'consumerSecret': 'cs_9756800a6b17a6c76bcde454de61fd30ce389fad',
-    'blog': 'https://wclovers.mstore.io',
+    // 'consumerKey': 'ck_cf6b2a2966f2d908cc08ebaef1336b15f9a6697c',
+    // 'consumerSecret': 'cs_9756800a6b17a6c76bcde454de61fd30ce389fad',
+    // 'blog': 'https://wclovers.mstore.io',
 
     /// remove to use as native screen
-    'forgetPassword':
-        'https://wclovers.mstore.io/wp-login.php?action=lostpassword'
+   // 'forgetPassword':
+        ''
   },
 
   /// ➡️ lib/common/config/general.dart
@@ -26,27 +30,38 @@ Map<String, dynamic> environment = {
     "dialCodeDefault": "+1",
     "nameDefault": "United States",
   },
+  // "phoneNumberConfig": {
+  //   "enable": false,
+  //   "countryCodeDefault": "US",
+  //   "dialCodeDefault": "+1",
+  //   "useInternationalFormat": true,
+  //   "selectorFlagAsPrefixIcon": true,
+  //   "showCountryFlag": true,
+  //   "customCountryList": [], // List alpha_2_code. E.g: ["VN", "AU"]
+  //   "selectorType": "BOTTOM_SHEET", // [DROPDOWN, BOTTOM_SHEET, DIALOG]
+  // },
   "phoneNumberConfig": {
-    "enable": false,
-    "countryCodeDefault": "US",
-    "dialCodeDefault": "+1",
-    "useInternationalFormat": true,
+    "dialCodeDefault": "+964",
+    "customCountryList": [],
+    "formatInput": false,
     "selectorFlagAsPrefixIcon": true,
+    "enable": true,
+    "countryCodeDefault": "IQ",
     "showCountryFlag": true,
-    "customCountryList": [], // List alpha_2_code. E.g: ["VN", "AU"]
-    "selectorType": "BOTTOM_SHEET", // [DROPDOWN, BOTTOM_SHEET, DIALOG]
+    "selectorType": "BOTTOM_SHEET",
+    "useInternationalFormat": true
   },
   "appRatingConfig": {
     'showOnOpen': false,
-    'android': 'com.inspireui.fluxstore',
-    'ios': '1469772800',
+    'android': 'com.inpaket.store',
+    'ios': '',
     'minDays': 7,
     'minLaunches': 10,
     'remindDays': 7,
     'remindLaunches': 10,
   },
   "advanceConfig": {
-    "DefaultLanguage": "en",
+    "DefaultLanguage": "ar",
     "DetailedBlogLayout": "halfSizeImageType",
     "EnablePointReward": false,
     "hideOutOfStock": false,
@@ -78,12 +93,12 @@ Map<String, dynamic> environment = {
     /// For example, to charge 10 USD, provide an amount value of 1000 (i.e., 1000 cents).
     /// Reference: https://stripe.com/docs/currencies#zero-decimal
     "DefaultCurrency": {
-      "symbol": "\$",
-      "decimalDigits": 2,
-      "symbolBeforeTheNumber": true,
-      "currency": "USD",
-      "currencyCode": "usd",
-      "smallestUnitRate": 100,
+     "symbol": "IQD ",
+        "smallestUnitRate": 1,
+        "currency": "IQD",
+        "decimalDigits": 0,
+        "symbolBeforeTheNumber": true,
+        "currencyCode": "iqd"
 
       /// 100 cents = 1 usd
     },
@@ -342,7 +357,7 @@ Map<String, dynamic> environment = {
     "darkTheme",
     "order",
     "point",
-    "rating",
+ 
     "privacy",
     "about",
   ],
@@ -350,7 +365,7 @@ Map<String, dynamic> environment = {
     "IsRequiredLogin": false,
     "showAppleLogin": true,
     "showFacebook": false,
-    "showSMSLogin": true,
+    "showSMSLogin": false,
     "showGoogleLogin": true,
     "showPhoneNumberWhenRegister": false,
     "requirePhoneNumberWhenRegister": false,
@@ -489,7 +504,7 @@ Map<String, dynamic> environment = {
     //The link your app will open
     "link": "https://mstore.io/",
     //----------* Android Setting *----------//
-    "androidPackageName": "com.inspireui.fluxstore",
+    "androidPackageName": "com.inpaket.store",
     "androidAppMinimumVersion": 1,
     //----------* iOS Setting *----------//
     "iOSBundleId": "com.inspireui.mstore.flutter",
@@ -1006,12 +1021,12 @@ Map<String, dynamic> environment = {
     },
     "applePayConfig": {
       "enable": true,
-      "merchantId": "merchant.com.inspireui.fluxstore",
+      "merchantId": "merchant.com.inpaket.store",
     },
     "googlePayConfig": {
       "enable": true,
       "stripePublishableKey": "pk_test_O3awus9i5mA2wIX9a7pU3MSi00gZPcpJWX",
-      "merchantId": "merchant.com.inspireui.fluxstore"
+      "merchantId": "merchant.com.inpaket.store"
     },
   },
   "stripeConfig": {
@@ -1042,7 +1057,7 @@ Map<String, dynamic> environment = {
     "secret":
         "ECbFREri7NFj64FI_9WzS6A0Az2DqNLrVokBo0ZBu4enHZKMKOvX45v9Y1NBPKFr6QJv2KaSp5vk5A1G",
     "returnUrl":
-        "com.inspireui.fluxstore://paypalpay", // Example: "your.android.package.name:://paypalpay"
+        "com.inpaket.store://paypalpay", // Example: "your.android.package.name:://paypalpay"
     "production": false,
     "paymentMethodId": "paypal", //ppcp-gateway
     "enabled": true,
@@ -1103,11 +1118,11 @@ Map<String, dynamic> environment = {
   },
   "inAppPurchaseConfig": {
     'consumableProductIDs': [
-      'com.inspireui.fluxstore.test',
+      'com.inpaket.store.test',
     ],
     'nonConsumableProductIDs': [],
     'subscriptionProductIDs': [
-      'com.inspireui.fluxstore.subscription.test',
+      'com.inpaket.store.subscription.test',
     ],
     "enabled": false
   },
@@ -1323,8 +1338,8 @@ Map<String, dynamic> environment = {
   /// ➡️ lib/common/smartchat.dart
   "configChat": {
     "EnableSmartChat": true,
-    "enableVendorChat": true,
-    "UseRealtimeChat": false,
+    "enableVendorChat": false,
+    "UseRealtimeChat": true,
     "showOnScreens": ["profile"],
     "hideOnScreens": [],
     "version": "2",
@@ -1349,45 +1364,66 @@ Map<String, dynamic> environment = {
 
   /// config for the chat app
   /// config Whatapp: https://faq.whatsapp.com/en/iphone/23559013
-  "smartChat": [
+  // "smartChat": [
+  //   {
+  //     "app": "firebase",
+  //     "imageData":
+  //         "https://trello.com/1/cards/611a38c89ebde41ec7cf10e2/attachments/611a392cceb1b534aa92a83e/previews/611a392dceb1b534aa92a84d/download",
+  //     "description": "Realtime Chat",
+  //   },
+  //   {
+  //     "app": "chatGPT",
+  //     "imageData": "https://i.imgur.com/pp1qlPd.png",
+  //     "description": "Chat GPT"
+  //   },
+  //   {
+  //     "app": "https://wa.me/849908854",
+  //     "iconData": "whatsapp",
+  //     "description": "WhatsApp"
+  //   },
+  //   {"app": "tel:8499999999", "iconData": "phone", "description": "Call Us"},
+  //   {"app": "sms://8499999999", "iconData": "sms", "description": "Send SMS"},
+  //   {
+  //     "app": "https://tawk.to/chat/5d830419c22bdd393bb69888/default",
+  //     "iconData": "whatsapp",
+  //     "description": "Tawk Chat"
+  //   },
+  //   {
+  //     "app": "http://m.me/inspireui",
+  //     "iconData": "facebookMessenger",
+  //     "description": "Facebook Chat"
+  //   },
+  //   {
+  //     "app":
+  //         "https://twitter.com/messages/compose?recipient_id=821597032011931648",
+  //     "imageData":
+  //         "https://trello.com/1/cards/611a38c89ebde41ec7cf10e2/attachments/611a38d026894f10dc1091c8/previews/611a38d126894f10dc1091d6/download",
+  //     "description": "Twitter Chat"
+  //   }
+  // ],f
+  // "adminEmail": "admininspireui@gmail.com",
+  // "adminName": "InspireUI",
+ "smartChat": [
+  
     {
-      "app": "firebase",
-      "imageData":
-          "https://trello.com/1/cards/611a38c89ebde41ec7cf10e2/attachments/611a392cceb1b534aa92a83e/previews/611a392dceb1b534aa92a84d/download",
-      "description": "Realtime Chat",
+      "app": "https://wa.me/+905527797730",
+      "description": "WhatsApp",
+      "iconData": "whatsapp"
+    },
+    {"app": "tel:+905527797730", "description": "Call Us", "iconData": "phone"},
+    {
+      "app": "sms://+905527797730",
+      "description": "Send SMS",
+      "iconData": "sms"
     },
     {
-      "app": "chatGPT",
-      "imageData": "https://i.imgur.com/pp1qlPd.png",
-      "description": "Chat GPT"
-    },
-    {
-      "app": "https://wa.me/849908854",
-      "iconData": "whatsapp",
-      "description": "WhatsApp"
-    },
-    {"app": "tel:8499999999", "iconData": "phone", "description": "Call Us"},
-    {"app": "sms://8499999999", "iconData": "sms", "description": "Send SMS"},
-    {
-      "app": "https://tawk.to/chat/5d830419c22bdd393bb69888/default",
-      "iconData": "whatsapp",
-      "description": "Tawk Chat"
-    },
-    {
-      "app": "http://m.me/inspireui",
-      "iconData": "facebookMessenger",
-      "description": "Facebook Chat"
-    },
-    {
-      "app":
-          "https://twitter.com/messages/compose?recipient_id=821597032011931648",
-      "imageData":
-          "https://trello.com/1/cards/611a38c89ebde41ec7cf10e2/attachments/611a38d026894f10dc1091c8/previews/611a38d126894f10dc1091d6/download",
-      "description": "Twitter Chat"
+      "app": "http://m.me/InPaket.shop",
+      "description": "Facebook Chat",
+      "iconData": "facebookMessenger"
     }
   ],
-  "adminEmail": "admininspireui@gmail.com",
-  "adminName": "InspireUI",
+  "adminEmail": "abdulrahman.92.q@gmail.com",
+  "adminName": "InPaket Admin",
 
   /// ➡️ lib/common/vendor.dart
   "vendorConfig": {
@@ -1455,7 +1491,7 @@ Map<String, dynamic> environment = {
   /// ➡️ lib/common/loading.dart
   "loadingIcon": {"size": 30.0, "type": "fadingCube"},
   "splashScreen": {
-    "enable": true,
+    "enable": false,
 
     /// duration in milliseconds, used for all types except "rive" and "flare"
     "duration": 2000,

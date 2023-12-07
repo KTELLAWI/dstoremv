@@ -114,7 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "aboutUs": MessageLookupByLibrary.simpleMessage("عن الجوال شوب"),
+        "aboutUs": MessageLookupByLibrary.simpleMessage("معلومات عنا"),
         "account": MessageLookupByLibrary.simpleMessage("الحساب"),
         "accountDeleteDescription": MessageLookupByLibrary.simpleMessage(
             "يؤدي حذف حسابك إلى إزالة المعلومات الشخصية من قاعدة بياناتنا. يصبح بريدك الإلكتروني محجوزاً بشكل دائم ولا يمكن إعادة استخدام نفس البريد الإلكتروني لتسجيل حساب جديد."),

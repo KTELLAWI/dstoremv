@@ -48,15 +48,22 @@ class UserModel with ChangeNotifier {
         const apple.AppleIdRequest(
             requestedScopes: [apple.Scope.email, apple.Scope.fullName])
       ]);
+      print("token......................... ");
+      print(String.fromCharCodes(
+                        result.credential!.authorizationCode!));
+                        print(result.credential?.fullName?.givenName,);
+                        print(result.credential?.fullName?.familyName);
 
       switch (result.status) {
         case apple.AuthorizationStatus.authorized:
           {
             user = await _service.api.loginApple(
                 token: ServerConfig().isMStoreApiPluginSupported
-                    ? String.fromCharCodes(
-                        result.credential!.authorizationCode!)
-                    : String.fromCharCodes(result.credential!.identityToken!),
+                    ? 
+                    String.fromCharCodes(
+                       result.credential!.authorizationCode!)
+                    :
+                     String.fromCharCodes(result.credential!.identityToken!),
                 firstName: result.credential?.fullName?.givenName,
                 lastName: result.credential?.fullName?.familyName);
 

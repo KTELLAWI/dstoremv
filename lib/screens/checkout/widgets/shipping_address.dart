@@ -71,6 +71,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
   List<Country>? countries = [];
   List<CountryState>? states = [];
   List<City>? cities = [];
+  bool isVerified = false;
 
   PhoneNumber? initialPhoneNumber;
 
@@ -493,7 +494,10 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
                         if (currentFieldType == AddressFieldType.phoneNumber &&
                             kPhoneNumberConfig.enablePhoneNumberValidation) {
-                          return InternationalPhoneNumberInput(
+                          return Row(
+                            children:[
+
+                              InternationalPhoneNumberInput(
                             /// Auto focus first field if it's empty.
                             autoFocus: index == 0 &&
                                 (currentFieldController?.text.isEmpty ?? false),
@@ -544,7 +548,42 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                 labelText: S
                                     .of(context)
                                     .searchByCountryNameOrDialCode),
-                          );
+ 
+                         ),
+  SizedBox(width: 10),
+              isVerified
+                  ? Row(
+                      children: [
+                        Icon(Icons.check, color: Colors.green),
+                        Text('Verified', style: TextStyle(color: Colors.green)),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Icon(Icons.clear, color: Colors.red),
+                        Text('Not Verified', style: TextStyle(color: Colors.red)),
+                      ],
+                    ),
+            ],
+          );
+SizedBox(height: 20),
+!isVerified
+          ElevatedButton(
+            onPressed: () {
+              // Perform phone number verification logic here
+              // For demonstration purposes, setting isVerified to true
+              setState(() {
+                ///show dialog process
+                isVerified = true;
+              });
+            },
+            child: Text('Verify'),
+          ),
+
+
+                            ]
+                          )
+                          
                         }
 
                         return TextFormField(

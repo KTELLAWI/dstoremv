@@ -6,7 +6,7 @@ description: Mobile commerce app by Flutter
 # A version number is three numbers separated by dots, like 1.2.43 - followed by an optional build number separated by a +.
 # In Android, build-name is used as versionName while build-number used as versionCode.Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion. Read more about iOS versioning at https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+3000
+version: 3.0.0+3000
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -23,10 +23,10 @@ dependencies:
     path: packages/flutterflow/
   flux_firebase:
     path: packages/flux_firebase/
-
   # Base
   flutter_localization: ^0.1.12
   intl: ^0.18.1
+  google_maps_flutter: ^2.5.0
   crypto: 3.0.3
   path_provider: 2.1.0
   url_launcher: 6.1.12
@@ -85,7 +85,7 @@ dependencies:
       ref: c2268281ca7f1f051f7ccab373e982d22c540910
 
   # MAP
-  google_maps_flutter: 2.4.0
+  #google_maps_flutter: 2.4.0
   location: 5.0.3
   geocoding: 2.1.1
 

@@ -325,7 +325,8 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
                     ? null
                     : () => isPaying || selectedId == null
                         ? showSnackbar
-                        : placeOrder(paymentMethodModel, cartModel),
+                        //:print("no function to excuteeeeeeeeeeeeeeeeeeeeeeeee"),
+                         : placeOrder(paymentMethodModel, cartModel),
                 icon: const Icon(
                   CupertinoIcons.check_mark_circled_solid,
                   size: 20,
@@ -376,97 +377,96 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
 
       /// Direct bank transfer (BACS)
 
-      if (!isSubscriptionProduct && paymentMethod.id!.contains('bacs')) {
-        widget.onLoading?.call(false);
-        isPaying = false;
+      // if (!isSubscriptionProduct && paymentMethod.id!.contains('bacs')) {
+      //   widget.onLoading?.call(false);
+      //   isPaying = false;
+      //   showModalBottomSheet(
+      //       context: context,
+      //       builder: (sContext) => Container(
+      //             padding: const EdgeInsets.symmetric(
+      //                 horizontal: 20.0, vertical: 10.0),
+      //             child: Column(
+      //               crossAxisAlignment: CrossAxisAlignment.stretch,
+      //               mainAxisSize: MainAxisSize.min,
+      //               children: [
+      //                 Row(
+      //                   mainAxisAlignment: MainAxisAlignment.end,
+      //                   children: [
+      //                     GestureDetector(
+      //                       onTap: () => Navigator.of(context).pop(),
+      //                       child: Text(
+      //                         S.of(context).cancel,
+      //                         style: Theme.of(context)
+      //                             .textTheme
+      //                             .bodySmall!
+      //                             .copyWith(color: Colors.red),
+      //                       ),
+      //                     ),
+      //                   ],
+      //                 ),
+      //                 const SizedBox(height: 10),
+      //                 HtmlWidget(
+      //                   paymentMethod.description!,
+      //                   textStyle: Theme.of(context).textTheme.bodySmall,
+      //                 ),
+      //                 const Expanded(child: SizedBox(height: 10)),
+      //                 ElevatedButton(
+      //                   onPressed: () {
+      //                     Navigator.pop(context);
+      //                     widget.onLoading!(true);
+      //                     isPaying = true;
+      //                     Services().widget.placeOrder(
+      //                       context,
+      //                       cartModel: cartModel,
+      //                       onLoading: widget.onLoading,
+      //                       paymentMethod: paymentMethod,
+      //                       success: (Order? order) async {
+      //                         if (order != null) {
+      //                           for (var item in order.lineItems) {
+      //                             var product =
+      //                                 cartModel.getProductById(item.productId!);
+      //                             if (product?.bookingInfo != null) {
+      //                               product!.bookingInfo!.idOrder = order.id;
+      //                               var booking = await createBooking(
+      //                                   product.bookingInfo)!;
 
-        showModalBottomSheet(
-            context: context,
-            builder: (sContext) => Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.of(context).pop(),
-                            child: Text(
-                              S.of(context).cancel,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: Colors.red),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      HtmlWidget(
-                        paymentMethod.description!,
-                        textStyle: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      const Expanded(child: SizedBox(height: 10)),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          widget.onLoading!(true);
-                          isPaying = true;
-                          Services().widget.placeOrder(
-                            context,
-                            cartModel: cartModel,
-                            onLoading: widget.onLoading,
-                            paymentMethod: paymentMethod,
-                            success: (Order? order) async {
-                              if (order != null) {
-                                for (var item in order.lineItems) {
-                                  var product =
-                                      cartModel.getProductById(item.productId!);
-                                  if (product?.bookingInfo != null) {
-                                    product!.bookingInfo!.idOrder = order.id;
-                                    var booking = await createBooking(
-                                        product.bookingInfo)!;
+      //                               Tools.showSnackBar(
+      //                                   ScaffoldMessenger.of(context),
+      //                                   booking
+      //                                       ? 'Booking success!'
+      //                                       : 'Booking error!');
+      //                             }
+      //                           }
+      //                           widget.onFinish!(order);
+      //                         }
+      //                         widget.onLoading?.call(false);
+      //                         isPaying = false;
+      //                       },
+      //                       error: (message) {
+      //                         widget.onLoading?.call(false);
+      //                         if (message != null) {
+      //                           Tools.showSnackBar(
+      //                               ScaffoldMessenger.of(context), message);
+      //                         }
+      //                         isPaying = false;
+      //                       },
+      //                     );
+      //                   },
+      //                   style: ElevatedButton.styleFrom(
+      //                     foregroundColor: Colors.white,
+      //                     backgroundColor: Theme.of(context).primaryColor,
+      //                   ),
+      //                   child: Text(
+      //                     S.of(context).ok,
+      //                   ),
+      //                 ),
+      //                 const SizedBox(height: 10),
+      //               ],
+      //             ),
+      //           ));
 
-                                    Tools.showSnackBar(
-                                        ScaffoldMessenger.of(context),
-                                        booking
-                                            ? 'Booking success!'
-                                            : 'Booking error!');
-                                  }
-                                }
-                                widget.onFinish!(order);
-                              }
-                              widget.onLoading?.call(false);
-                              isPaying = false;
-                            },
-                            error: (message) {
-                              widget.onLoading?.call(false);
-                              if (message != null) {
-                                Tools.showSnackBar(
-                                    ScaffoldMessenger.of(context), message);
-                              }
-                              isPaying = false;
-                            },
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ),
-                        child: Text(
-                          S.of(context).ok,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                    ],
-                  ),
-                ));
-
-        return;
-      }
+      //   return;
+      // }
 
       /// PayPal Payment
       if (!isSubscriptionProduct &&
@@ -673,7 +673,7 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
         return;
       }
 
-      /// Use WebView Payment per frameworks
+      // Use WebView Payment per frameworks
       Services().widget.placeOrder(
         context,
         cartModel: cartModel,

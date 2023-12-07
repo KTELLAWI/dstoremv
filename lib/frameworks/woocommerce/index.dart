@@ -214,7 +214,7 @@ class WooWidget extends BaseFrameworks
             .api
             .updateOrder(order.id, status: 'on-hold', token: token);
       }
-      if ((cod && kPaymentConfig.updateOrderStatus)) {
+      if (cod) {
         await Services()
             .api
             .updateOrder(order.id, status: 'processing', token: token);
