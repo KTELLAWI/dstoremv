@@ -496,8 +496,17 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
                         if (currentFieldType == AddressFieldType.phoneNumber &&
                             kPhoneNumberConfig.enablePhoneNumberValidation) {
-                          return Row(children: [
-                            InternationalPhoneNumberInput(
+                          return 
+                          // SizedBox(
+                          //    width: 200,
+                          //  //padding: const EdgeInsets.all( 1.0),
+                          //   child:
+                          //  Row(
+                          //   mainAxisSize:MainAxisSize.min,
+                          // children: [
+                           
+
+                           InternationalPhoneNumberInput(
                               /// Auto focus first field if it's empty.
                               autoFocus: index == 0 &&
                                   (currentFieldController?.text.isEmpty ??
@@ -551,29 +560,15 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                   labelText: S
                                       .of(context)
                                       .searchByCountryNameOrDialCode),
-                            ),
-                            SizedBox(width: 10),
-                            isVerified
-                                ? Row(
-                                    children: [
-                                      Icon(Icons.check, color: Colors.green),
-                                      Text('Verified',
-                                          style:
-                                              TextStyle(color: Colors.green)),
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      Icon(Icons.clear, color: Colors.red),
-                                      Text('Not Verified',
-                                          style: TextStyle(color: Colors.red)),
-                                    ],
-                                  ),
-                          ]
-                          );
+                            );
+                           
+                         
+                          
                         }
 
-                        return TextFormField(
+                      return 
+                    
+                            TextFormField(
                           /// Auto focus first field if it's empty.
                           autofocus: index == 0 &&
                               (currentFieldController?.text.isEmpty ?? false),
@@ -609,25 +604,11 @@ class _ShippingAddressState extends State<ShippingAddress> {
                             currentFieldType,
                           ),
                         );
+                  
+                        
                       },
 
-                    )..add(
-        SizedBox(height: 20),
-if (!isVerified)
-  ElevatedButton(
-    onPressed: () {
-      // Perform phone number verification logic here
-      // For demonstration purposes, setting isVerified to true
-      setState(() {
-        ///show dialog process
-        isVerified = true;
-      });
-    },
-    child: Text('Verify'),
-  ),
-
-                   
-                    ),
+                    )
 
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert' as convert;
+import '../../../services/firebase_service.dart';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,6 +28,11 @@ import '../../../services/index.dart';
 import '../../../widgets/common/common_safe_area.dart';
 import '../../../widgets/html/index.dart';
 import '../../cart/widgets/shopping_cart_sumary.dart';
+import '../../login_sms/login_sms_viewmodel.dart';
+import '../../login_sms/verifyorder.dart';
+import 'codeverification_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PaymentMethods extends StatefulWidget {
   final Function? onBack;
@@ -39,9 +45,259 @@ class PaymentMethods extends StatefulWidget {
   State<PaymentMethods> createState() => _PaymentMethodsState();
 }
 
-class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
+class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate,  TickerProviderStateMixin  {
   String? selectedId;
   bool isPaying = false;
+  //late AnimationController _loginButtonController;
+  //final FirebaseAuth _auth = FirebaseAuth.instance;
+   // final FirebaseServices _firebaseServices;
+
+
+  LoginSmsViewModel get viewModel => context.read<LoginSmsViewModel>();
+  String _phoneNumber = '905345130437';
+String _verificationId = '';
+String _verificationCode = ''; // Define here
+
+// Send verification code
+Future<void> _sendVerificationCode() async {
+  Navigator.of(context).pop();
+  try {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: '+${_phoneNumber}',
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // Sign the user in automatically if auto-retrieval is successful
+        await FirebaseAuth.instance.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        // Handle verification failed error
+        print(e.message);
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+       // Navigator.of(context).pop();
+        // Save the verification ID for later use
+        _verificationId = verificationId;
+
+        // Show a dialog to enter the verification code
+        await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Enter Verification Code'),
+            content: TextField(
+              onChanged: (value) {
+                // Store the entered verification code
+                //_verificationCode = value;
+              },
+            ),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  // Verify the phone number
+                  await _verifyPhoneNumbera();
+                  Navigator.pop(context);
+                },
+                child: Text('Verify'),
+              ),
+            ],
+          ),
+        );
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        // Handle code auto-retrieval timeout
+        print('Code retrieval timed out. Please try again.');
+      },
+    );
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+Future<void> _verifyPhoneNumbera() async {
+  try {
+    final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: _verificationId,
+      smsCode: _verificationCode,
+    );
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    // User successfully verified!
+  } catch (e) {
+    print(e.toString());
+  }
+}
+
+
+   Future<void> _verifyPhoneNumber(BuildContext context, String phoneNumber) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text("Please wait. Sending verification code..."),
+              ],
+            ),
+          );
+        },
+      );
+_sendVerificationCode();
+       
+    // try {
+    //   viewModel.verify(
+    //     autoRetrieve: (String verificationId) {
+    //       // Handle timeout
+    //     },
+    //     smsCodeSent:  (String verificationId, int? resendToken) async {
+    //         Navigator.of(context).pop();
+    //         showModalBottomSheet(
+    //         context: context,
+    //         builder: (BuildContext context) {
+    //           return CodeVerificationScreen(verificationId: "verificationId");
+    //         },
+    //       );
+    //     },
+    //     verifyFailed:(e) {
+    //       // Handle verification failed
+    //     }, 
+    //     startVerify:(e) {
+    //       // Handle verification failed
+    //     }, 
+    //   );
+    //   // await _firebaseServices.verifyPhoneNumber(
+    //   //   phoneNumber: phoneNumber,
+    //   //   verificationCompleted: ( credential) async {
+    //   //     // Auto-retrieval of SMS code completed (e.g., sign in with auto-retrieved OTP)
+    //   //     // You can use the credential to sign in with the user's phone number.
+    //   //   },
+    //   //   verificationFailed: (e) {
+    //   //     // Handle verification failed
+    //   //   },
+    //   //   codeSent: (String verificationId, int? resendToken) async {
+    //   //       Navigator.of(context).pop();
+    //   //       showModalBottomSheet(
+    //   //       context: context,
+    //   //       builder: (BuildContext context) {
+    //   //         return CodeVerificationScreen(verificationId: "verificationId");
+    //   //       },
+    //   //     );
+    //   //     // Save the verification ID somewhere to use it in the next step
+    //   //     // Show bottom modal sheet for entering the code
+    //   //  ;
+    //   //   },
+    //   //   codeAutoRetrievalTimeout: (String verificationId) {
+    //   //     // Handle timeout
+    //   //   },
+    //   // );
+    // } catch (e) {
+    //   // Handle verification initiation failure
+    //   print("Error during phone number verification initiation: $e");
+    // }
+  }
+
+  // void loginSMS(context) {
+  //   if (viewModel.phoneNumber.isEmpty) {
+  //     Tools.showSnackBar(ScaffoldMessenger.of(context),
+  //         S.of(context).pleaseInputFillAllFields);
+  //   } else {
+  //     Future autoRetrieve(String verId) {
+  //       return playAnimation();
+  //     }
+
+  //     Future smsCodeSent(String verId, [int? forceCodeResend]) {
+  //       //stopAnimation();
+  //    return    showModalBottomSheet(
+  //   context: context,
+  //   builder: (context) => VerifyCodeOrder(
+  //     verId: verId,
+  //     phoneNumber: viewModel.phoneFullText,
+  //     verifySuccessStream: viewModel.getStreamSuccess,
+  //     resendToken: forceCodeResend,
+  //   ),
+  // ).then((_) {
+  //   // This code runs when the bottom sheet is dismissed
+  //   // You can perform additional actions here
+  // });
+  //     //   return Navigator.push(
+  //     //     context,
+  //     //     MaterialPageRoute(
+  //     //       builder: (context) => VerifyCode(
+  //     //         verId: verId,
+  //     //         phoneNumber: viewModel.phoneFullText,
+  //     //         verifySuccessStream: viewModel.getStreamSuccess,
+  //     //         resendToken: forceCodeResend,
+  //     //       ),
+  //     //     ),
+  //     //   );
+  //     // }
+
+  //     void verifyFailed(exception) {
+  //      // stopAnimation();
+  //       //failMessage(exception.toString(), context);
+  //     }
+
+  //     viewModel.verify(
+  //       autoRetrieve: autoRetrieve,
+  //       smsCodeSent: smsCodeSent,
+  //       verifyFailed: verifyFailed,
+  //       //startVerify: playAnimation(),
+  //     );
+  //   }
+  // }
+  // }
+
+   Future<bool> playAnimation() async {
+    final snackBar = SnackBar(
+      content: Text('⚠️'),
+      duration: const Duration(seconds: 30),
+      action: SnackBarAction(
+        label: S.of(context).close,
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+    try {
+    //   viewModel.enableLoading();
+    //   await _loginButtonController.forward();
+       return true;
+   } on TickerCanceled {
+    //   printLog('[_playAnimation] error');
+      return false;
+    }
+  }
+
+  Future stopAnimation() async {
+
+    // try {
+    //   await _loginButtonController.reverse();
+    //   viewModel.enableLoading(false);
+    // } on TickerCanceled {
+    //   printLog('[_stopAnimation] error');
+    // }
+  }
+
+  void failMessage(message, context) {
+    /// Showing Error messageSnackBarDemo
+    /// Ability so close message
+    final snackBar = SnackBar(
+      content: Text('⚠️'),
+      duration: const Duration(seconds: 30),
+      action: SnackBarAction(
+        label: S.of(context).close,
+        onPressed: () {
+          // Some code to undo the change.
+        },
+      ),
+    );
+
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
+
 
   @override
   void initState() {
@@ -325,8 +581,8 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
                     ? null
                     : () => isPaying || selectedId == null
                         ? showSnackbar
-                        //:print("no function to excuteeeeeeeeeeeeeeeeeeeeeeeee"),
-                         : placeOrder(paymentMethodModel, cartModel),
+                        //://print("no function to excuteeeeeeeeeeeeeeeeeeeeeeeee"),
+                         : _verifyPhoneNumber(context,"905345130437"),//placeOrder(paymentMethodModel, cartModel),
                 icon: const Icon(
                   CupertinoIcons.check_mark_circled_solid,
                   size: 20,
@@ -345,7 +601,11 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
         ScaffoldMessenger.of(context), S.of(context).orderStatusProcessing);
   }
 
-  void placeOrder(PaymentMethodModel paymentMethodModel, CartModel cartModel) {
+  void placeOrder(PaymentMethodModel paymentMethodModel, CartModel cartModel) async{
+    
+    ///show dailog of phone verfication
+ //loginSMS(context);
+ await _verifyPhoneNumber(context,"905345130437");
     final currencyRate =
         Provider.of<AppModel>(context, listen: false).currencyRate;
     final cartModel = Provider.of<CartModel>(context, listen: false);
@@ -365,13 +625,13 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
 
       var productList = cartModel.getProductsInCart();
 
-      Services().firebase.firebaseAnalytics?.logAddPaymentInfo(
-            coupon: cartModel.couponObj?.code,
-            currency: cartModel.currencyCode,
-            data: productList,
-            paymentType: paymentMethod.title,
-            price: cartModel.getSubTotal(),
-          );
+      // Services().firebase.firebaseAnalytics?.logAddPaymentInfo(
+      //       coupon: cartModel.couponObj?.code,
+      //       currency: cartModel.currencyCode,
+      //       data: productList,
+      //       paymentType: paymentMethod.title,
+      //       price: cartModel.getSubTotal(),
+      //     );
 
       /// Use Native payment
 
@@ -469,242 +729,242 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate {
       // }
 
       /// PayPal Payment
-      if (!isSubscriptionProduct &&
-          isNotBlank(kPaypalConfig['paymentMethodId']) &&
-          paymentMethod.id!.contains(kPaypalConfig['paymentMethodId']) &&
-          kPaypalConfig['enabled'] == true) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PaypalPayment(
-              onFinish: (payerID, paymentToken) {
-                if (payerID == null) {
-                  widget.onLoading?.call(false);
-                  isPaying = false;
-                  return;
-                } else {
-                  createOrder(
-                    paid: true,
-                    additionalPaymentInfo: AdditionalPaymentInfo(
-                        ppPayerId: payerID, ppPaymentToken: paymentToken),
-                  ).then((value) {
-                    widget.onLoading?.call(false);
-                    isPaying = false;
-                  });
-                }
-              },
-            ),
-          ),
-        );
-        return;
-      }
+      // if (!isSubscriptionProduct &&
+      //     isNotBlank(kPaypalConfig['paymentMethodId']) &&
+      //     paymentMethod.id!.contains(kPaypalConfig['paymentMethodId']) &&
+      //     kPaypalConfig['enabled'] == true) {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => PaypalPayment(
+      //         onFinish: (payerID, paymentToken) {
+      //           if (payerID == null) {
+      //             widget.onLoading?.call(false);
+      //             isPaying = false;
+      //             return;
+      //           } else {
+      //             createOrder(
+      //               paid: true,
+      //               additionalPaymentInfo: AdditionalPaymentInfo(
+      //                   ppPayerId: payerID, ppPaymentToken: paymentToken),
+      //             ).then((value) {
+      //               widget.onLoading?.call(false);
+      //               isPaying = false;
+      //             });
+      //           }
+      //         },
+      //       ),
+      //     ),
+      //   );
+      //   return;
+      // }
 
       /// MercadoPago payment
-      if (!isSubscriptionProduct &&
-          isNotBlank(kMercadoPagoConfig['paymentMethodId']) &&
-          paymentMethod.id!.contains(kMercadoPagoConfig['paymentMethodId']) &&
-          kMercadoPagoConfig['enabled'] == true) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MercadoPagoPayment(
-              onFinish: (number, paid) {
-                if (number == null) {
-                  widget.onLoading?.call(false);
-                  isPaying = false;
-                  return;
-                } else {
-                  createOrder(paid: paid).then((value) {
-                    widget.onLoading?.call(false);
-                    isPaying = false;
-                  });
-                }
-              },
-            ),
-          ),
-        );
-        return;
-      }
+      // if (!isSubscriptionProduct &&
+      //     isNotBlank(kMercadoPagoConfig['paymentMethodId']) &&
+      //     paymentMethod.id!.contains(kMercadoPagoConfig['paymentMethodId']) &&
+      //     kMercadoPagoConfig['enabled'] == true) {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => MercadoPagoPayment(
+      //         onFinish: (number, paid) {
+      //           if (number == null) {
+      //             widget.onLoading?.call(false);
+      //             isPaying = false;
+      //             return;
+      //           } else {
+      //             createOrder(paid: paid).then((value) {
+      //               widget.onLoading?.call(false);
+      //               isPaying = false;
+      //             });
+      //           }
+      //         },
+      //       ),
+      //     ),
+      //   );
+      //   return;
+      // }
 
       /// RazorPay payment
       /// Check below link for parameters:
       /// https://razorpay.com/docs/payment-gateway/web-integration/standard/#step-2-pass-order-id-and-other-options
-      if (!isSubscriptionProduct &&
-          paymentMethod.id!.contains(kRazorpayConfig['paymentMethodId']) &&
-          kRazorpayConfig['enabled'] == true) {
-        Services().api.createRazorpayOrder({
-          'amount': (PriceTools.getPriceValueByCurrency(cartModel.getTotal()!,
-                      cartModel.currencyCode!, currencyRate) *
-                  100)
-              .toInt()
-              .toString(),
-          'currency': cartModel.currencyCode,
-        }).then((value) {
-          final razorServices = RazorServices(
-            amount: (PriceTools.getPriceValueByCurrency(cartModel.getTotal()!,
-                        cartModel.currencyCode!, currencyRate) *
-                    100)
-                .toInt()
-                .toString(),
-            keyId: kRazorpayConfig['keyId'],
-            delegate: this,
-            orderId: value,
-            userInfo: RazorUserInfo(
-              email: cartModel.address?.email,
-              phone: cartModel.address?.phoneNumber,
-              fullName:
-                  '${cartModel.address?.firstName ?? ''} ${cartModel.address?.lastName ?? ''}'
-                      .trim(),
-            ),
-          );
-          razorServices.openPayment(cartModel.currencyCode!);
-        }).catchError((e) {
-          widget.onLoading?.call(false);
-          Tools.showSnackBar(ScaffoldMessenger.of(context), e);
-          isPaying = false;
-        });
-        return;
-      }
+      // if (!isSubscriptionProduct &&
+      //     paymentMethod.id!.contains(kRazorpayConfig['paymentMethodId']) &&
+      //     kRazorpayConfig['enabled'] == true) {
+      //   Services().api.createRazorpayOrder({
+      //     'amount': (PriceTools.getPriceValueByCurrency(cartModel.getTotal()!,
+      //                 cartModel.currencyCode!, currencyRate) *
+      //             100)
+      //         .toInt()
+      //         .toString(),
+      //     'currency': cartModel.currencyCode,
+      //   }).then((value) {
+      //     final razorServices = RazorServices(
+      //       amount: (PriceTools.getPriceValueByCurrency(cartModel.getTotal()!,
+      //                   cartModel.currencyCode!, currencyRate) *
+      //               100)
+      //           .toInt()
+      //           .toString(),
+      //       keyId: kRazorpayConfig['keyId'],
+      //       delegate: this,
+      //       orderId: value,
+      //       userInfo: RazorUserInfo(
+      //         email: cartModel.address?.email,
+      //         phone: cartModel.address?.phoneNumber,
+      //         fullName:
+      //             '${cartModel.address?.firstName ?? ''} ${cartModel.address?.lastName ?? ''}'
+      //                 .trim(),
+      //       ),
+      //     );
+      //     razorServices.openPayment(cartModel.currencyCode!);
+      //   }).catchError((e) {
+      //     widget.onLoading?.call(false);
+      //     Tools.showSnackBar(ScaffoldMessenger.of(context), e);
+      //     isPaying = false;
+      //   });
+      //   return;
+      // }
 
       /// PayTm payment.
       /// Check below link for parameters:
       /// https://developer.paytm.com/docs/all-in-one-sdk/hybrid-apps/flutter/
-      final availablePayTm = kPayTmConfig['paymentMethodId'] != null &&
-          (kPayTmConfig['enabled'] ?? false) &&
-          paymentMethod.id!.contains(kPayTmConfig['paymentMethodId']);
-      if (!isSubscriptionProduct && availablePayTm) {
-        createOrderOnWebsite(
-            paid: false,
-            onFinish: (Order? order) async {
-              if (order != null) {
-                final paytmServices = PayTmServices(
-                  amount: cartModel.getTotal()!.toString(),
-                  orderId: order.id!,
-                  email: cartModel.address?.email,
-                );
-                try {
-                  await paytmServices.openPayment();
-                  widget.onFinish!(order);
-                } catch (e) {
-                  Tools.showSnackBar(
-                      ScaffoldMessenger.of(context), e.toString());
-                  isPaying = false;
-                  unawaited(_deletePendingOrder(order.id));
-                }
-              }
-            });
-        return;
-      }
+      // final availablePayTm = kPayTmConfig['paymentMethodId'] != null &&
+      //     (kPayTmConfig['enabled'] ?? false) &&
+      //     paymentMethod.id!.contains(kPayTmConfig['paymentMethodId']);
+      // if (!isSubscriptionProduct && availablePayTm) {
+      //   createOrderOnWebsite(
+      //       paid: false,
+      //       onFinish: (Order? order) async {
+      //         if (order != null) {
+      //           final paytmServices = PayTmServices(
+      //             amount: cartModel.getTotal()!.toString(),
+      //             orderId: order.id!,
+      //             email: cartModel.address?.email,
+      //           );
+      //           try {
+      //             await paytmServices.openPayment();
+      //             widget.onFinish!(order);
+      //           } catch (e) {
+      //             Tools.showSnackBar(
+      //                 ScaffoldMessenger.of(context), e.toString());
+      //             isPaying = false;
+      //             unawaited(_deletePendingOrder(order.id));
+      //           }
+      //         }
+      //       });
+      //   return;
+      // }
 
       /// PayStack payment.
-      final availablePayStack = kPayStackConfig['paymentMethodId'] != null &&
-          (kPayStackConfig['enabled'] ?? false) &&
-          paymentMethod.id!.contains(kPayStackConfig['paymentMethodId']);
-      if (!isSubscriptionProduct && availablePayStack) {
-        final isSupported =
-            List.from(kPayStackConfig['supportedCurrencies'] ?? [])
-                    .firstWhereOrNull((e) =>
-                        e.toString().toLowerCase() ==
-                        cartModel.currencyCode?.toLowerCase()) !=
-                null;
-        if (isSupported) {
-          createOrderOnWebsite(
-              paid: false,
-              onFinish: (Order? order) async {
-                if (order != null) {
-                  final payStackServices = PayStackServices(
-                    amount: order.total?.toString() ?? '',
-                    orderId: order.id!,
-                    email: cartModel.address?.email,
-                  );
-                  try {
-                    await payStackServices.openPayment(
-                        context, widget.onLoading!);
-                    widget.onFinish!(order);
-                  } catch (e) {
-                    Tools.showSnackBar(
-                        ScaffoldMessenger.of(context), e.toString());
-                    isPaying = false;
-                    unawaited(_deletePendingOrder(order.id));
-                  }
-                }
-              });
-        } else {
-          isPaying = false;
-          widget.onLoading?.call(false);
-          Tools.showSnackBar(
-              ScaffoldMessenger.of(context),
-              S.of(context).currencyIsNotSupported(
-                  cartModel.currencyCode?.toUpperCase() ?? ''));
-        }
-        return;
-      }
+      // final availablePayStack = kPayStackConfig['paymentMethodId'] != null &&
+      //     (kPayStackConfig['enabled'] ?? false) &&
+      //     paymentMethod.id!.contains(kPayStackConfig['paymentMethodId']);
+      // if (!isSubscriptionProduct && availablePayStack) {
+      //   final isSupported =
+      //       List.from(kPayStackConfig['supportedCurrencies'] ?? [])
+      //               .firstWhereOrNull((e) =>
+      //                   e.toString().toLowerCase() ==
+      //                   cartModel.currencyCode?.toLowerCase()) !=
+      //           null;
+      //   if (isSupported) {
+      //     createOrderOnWebsite(
+      //         paid: false,
+      //         onFinish: (Order? order) async {
+      //           if (order != null) {
+      //             final payStackServices = PayStackServices(
+      //               amount: order.total?.toString() ?? '',
+      //               orderId: order.id!,
+      //               email: cartModel.address?.email,
+      //             );
+      //             try {
+      //               await payStackServices.openPayment(
+      //                   context, widget.onLoading!);
+      //               widget.onFinish!(order);
+      //             } catch (e) {
+      //               Tools.showSnackBar(
+      //                   ScaffoldMessenger.of(context), e.toString());
+      //               isPaying = false;
+      //               unawaited(_deletePendingOrder(order.id));
+      //             }
+      //           }
+      //         });
+      //   } else {
+      //     isPaying = false;
+      //     widget.onLoading?.call(false);
+      //     Tools.showSnackBar(
+      //         ScaffoldMessenger.of(context),
+      //         S.of(context).currencyIsNotSupported(
+      //             cartModel.currencyCode?.toUpperCase() ?? ''));
+      //   }
+      //   return;
+      // }
 
       /// Flutterwave payment.
-      final availableFlutterwave =
-          kFlutterwaveConfig['paymentMethodId'] != null &&
-              (kFlutterwaveConfig['enabled'] ?? false) &&
-              paymentMethod.id!.contains(kFlutterwaveConfig['paymentMethodId']);
-      if (!isSubscriptionProduct && availableFlutterwave) {
-        createOrderOnWebsite(
-            paid: false,
-            onFinish: (Order? order) async {
-              if (order != null) {
-                final flutterwaveServices = FlutterwaveServices(
-                    amount: cartModel.getTotal()!.toString(),
-                    orderId: order.id!,
-                    email: cartModel.address?.email,
-                    name: cartModel.address?.fullName,
-                    phone: cartModel.address?.phoneNumber,
-                    currency: cartModel.currencyCode,
-                    paymentMethod: paymentMethod.title);
-                try {
-                  await flutterwaveServices.openPayment(
-                      context, widget.onLoading!);
-                  widget.onFinish!(order);
-                } catch (e) {
-                  Tools.showSnackBar(
-                      ScaffoldMessenger.of(context), e.toString());
-                  isPaying = false;
-                  unawaited(_deletePendingOrder(order.id));
-                }
-              }
-            });
-        return;
-      }
+      // final availableFlutterwave =
+      //     kFlutterwaveConfig['paymentMethodId'] != null &&
+      //         (kFlutterwaveConfig['enabled'] ?? false) &&
+      //         paymentMethod.id!.contains(kFlutterwaveConfig['paymentMethodId']);
+      // if (!isSubscriptionProduct && availableFlutterwave) {
+      //   createOrderOnWebsite(
+      //       paid: false,
+      //       onFinish: (Order? order) async {
+      //         if (order != null) {
+      //           final flutterwaveServices = FlutterwaveServices(
+      //               amount: cartModel.getTotal()!.toString(),
+      //               orderId: order.id!,
+      //               email: cartModel.address?.email,
+      //               name: cartModel.address?.fullName,
+      //               phone: cartModel.address?.phoneNumber,
+      //               currency: cartModel.currencyCode,
+      //               paymentMethod: paymentMethod.title);
+      //           try {
+      //             await flutterwaveServices.openPayment(
+      //                 context, widget.onLoading!);
+      //             widget.onFinish!(order);
+      //           } catch (e) {
+      //             Tools.showSnackBar(
+      //                 ScaffoldMessenger.of(context), e.toString());
+      //             isPaying = false;
+      //             unawaited(_deletePendingOrder(order.id));
+      //           }
+      //         }
+      //       });
+      //   return;
+      // }
 
       // Use WebView Payment per frameworks
-      Services().widget.placeOrder(
-        context,
-        cartModel: cartModel,
-        onLoading: widget.onLoading,
-        paymentMethod: paymentMethod,
-        success: (Order? order) async {
-          if (order != null) {
-            for (var item in order.lineItems) {
-              var product = cartModel.getProductById(item.productId!);
-              if (product?.bookingInfo != null) {
-                product!.bookingInfo!.idOrder = order.id;
-                var booking = await createBooking(product.bookingInfo)!;
+      // Services().widget.placeOrder(
+      //   context,
+      //   cartModel: cartModel,
+      //   onLoading: widget.onLoading,
+      //   paymentMethod: paymentMethod,
+      //   success: (Order? order) async {
+      //     if (order != null) {
+      //       for (var item in order.lineItems) {
+      //         var product = cartModel.getProductById(item.productId!);
+      //         if (product?.bookingInfo != null) {
+      //           product!.bookingInfo!.idOrder = order.id;
+      //           var booking = await createBooking(product.bookingInfo)!;
 
-                Tools.showSnackBar(ScaffoldMessenger.of(context),
-                    booking ? 'Booking success!' : 'Booking error!');
-              }
-            }
-            widget.onFinish!(order);
-          }
-          widget.onLoading?.call(false);
-          isPaying = false;
-        },
-        error: (message) {
-          widget.onLoading?.call(false);
-          if (message != null) {
-            Tools.showSnackBar(ScaffoldMessenger.of(context), message);
-          }
+      //           Tools.showSnackBar(ScaffoldMessenger.of(context),
+      //               booking ? 'Booking success!' : 'Booking error!');
+      //         }
+      //       }
+      //       widget.onFinish!(order);
+      //     }
+      //     widget.onLoading?.call(false);
+      //     isPaying = false;
+      //   },
+      //   error: (message) {
+      //     widget.onLoading?.call(false);
+      //     if (message != null) {
+      //       Tools.showSnackBar(ScaffoldMessenger.of(context), message);
+      //     }
 
-          isPaying = false;
-        },
-      );
+      //     isPaying = false;
+      //   },
+      // );
     }
   }
 

@@ -60,7 +60,7 @@ class LoginSmsViewModel extends ChangeNotifier {
   Future<void> verify({
     required Future Function(String verId, [int? forceCodeResend]) smsCodeSent,
     required Future Function(String verId) autoRetrieve,
-    required Future<bool> Function() startVerify,
+    Future<bool> Function()? startVerify,
     required Function(dynamic exception) verifyFailed,
   }) async {
     if (_isLoading) {
@@ -68,8 +68,8 @@ class LoginSmsViewModel extends ChangeNotifier {
     }
 
     try {
-      final isChecked = await startVerify();
-      if (isChecked) {
+     // final isChecked = await startVerify();
+      //if (isChecked) {
         unawaited(_firebaseServices.verifyPhoneNumber(
           phoneNumber: phoneFullText,
           codeAutoRetrievalTimeout: autoRetrieve,
@@ -77,7 +77,7 @@ class LoginSmsViewModel extends ChangeNotifier {
           verificationFailed: verifyFailed,
           codeSent: smsCodeSent,
         ));
-      }
+      //}
     } catch (e) {
       rethrow;
     }
