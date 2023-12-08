@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert' as convert;
 import '../../../services/firebase_service.dart';
-
+import  "global.dart";
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,26 +54,30 @@ class _PaymentMethodsState extends State<PaymentMethods> with RazorDelegate,  Ti
 
 
   LoginSmsViewModel get viewModel => context.read<LoginSmsViewModel>();
-  String _phoneNumber = '905345130437';
+  String _phoneNumber = '905528095357';
 String _verificationId = '';
-String _verificationCode = ''; // Define here
+String _verificationCode = ''; 
+bool numberVerfied = false;// Define here
 
 // Send verification code
-Future<void> _sendVerificationCode() async {
-  Navigator.of(context).pop();
+Future<void> _sendVerificationCode(PaymentMethodModel paymentMethodModel, CartModel cartModel) async {
+  //Navigator.of(context).pop();
+  print(initialPhoneNumber2);
   try {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+${_phoneNumber}',
+      phoneNumber:initialPhoneNumber2,
       verificationCompleted: (PhoneAuthCredential credential) async {
         // Sign the user in automatically if auto-retrieval is successful
-        await FirebaseAuth.instance.signInWithCredential(credential);
+       // await FirebaseAuth.instance.signInWithCredential(credential);
       },
       verificationFailed: (FirebaseAuthException e) {
         // Handle verification failed error
         print(e.message);
+            Navigator.pop(context);
+
       },
       codeSent: (String verificationId, int? resendToken) async {
-       // Navigator.of(context).pop();
+                  Navigator.pop(context);
         // Save the verification ID for later use
         _verificationId = verificationId;
 
@@ -81,21 +85,21 @@ Future<void> _sendVerificationCode() async {
         await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Enter Verification Code'),
+            title: Text('من فضلك ادخل الكود'),
             content: TextField(
               onChanged: (value) {
                 // Store the entered verification code
-                //_verificationCode = value;
+                _verificationCode = value;
               },
             ),
             actions: [
               TextButton(
                 onPressed: () async {
                   // Verify the phone number
-                  await _verifyPhoneNumbera();
+                  await _verifyPhoneNumbera(paymentMethodModel,cartModel);
                   Navigator.pop(context);
                 },
-                child: Text('Verify'),
+                child: Text('تاكيد'),
               ),
             ],
           ),
@@ -104,29 +108,52 @@ Future<void> _sendVerificationCode() async {
       codeAutoRetrievalTimeout: (String verificationId) {
         // Handle code auto-retrieval timeout
         print('Code retrieval timed out. Please try again.');
+         /// showSnackbar timeout 
+             Navigator.pop(context);
+
       },
     );
   } catch (e) {
     print(e.toString());
+    Navigator.pop(context);
   }
 }
 
-Future<void> _verifyPhoneNumbera() async {
+Future<void> _verifyPhoneNumbera(PaymentMethodModel paymentMethodModel, CartModel cartModel) async {
   try {
-    final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+
+     final PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: _verificationId,
       smsCode: _verificationCode,
     );
+   
 
-    await FirebaseAuth.instance.signInWithCredential(credential);
-    // User successfully verified!
+    if (credential != null) {
+      // User verified successfully!
+      print('Phone number verified!');
+      Tools.showSnackBar(
+        ScaffoldMessenger.of(context), "تم  التحقق");
+      Navigator.pop(context);
+      placeOrder(paymentMethodModel, cartModel);
+      
+
+      
+    } else {
+          Tools.showSnackBar(
+        ScaffoldMessenger.of(context), "فشل التحقق");
+
+      ////snacbar fail/
+      //
+      // Invalid code entered
+Navigator.pop(context);
+  
+    }
   } catch (e) {
     print(e.toString());
   }
 }
 
-
-   Future<void> _verifyPhoneNumber(BuildContext context, String phoneNumber) async {
+   Future<void> _verifyPhoneNumber(BuildContext context, String phoneNumber,PaymentMethodModel paymentMethodModel, CartModel cartModel) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -137,13 +164,13 @@ Future<void> _verifyPhoneNumbera() async {
               children: [
                 CircularProgressIndicator(),
                 SizedBox(height: 16),
-                Text("Please wait. Sending verification code..."),
+                Text("جاري ارسال الكود لتأكيد رقم الموبايل قبل اتمام الطلب"),
               ],
             ),
           );
         },
       );
-_sendVerificationCode();
+_sendVerificationCode( paymentMethodModel,cartModel);
        
     // try {
     //   viewModel.verify(
@@ -582,7 +609,7 @@ _sendVerificationCode();
                     : () => isPaying || selectedId == null
                         ? showSnackbar
                         //://print("no function to excuteeeeeeeeeeeeeeeeeeeeeeeee"),
-                         : _verifyPhoneNumber(context,"905345130437"),//placeOrder(paymentMethodModel, cartModel),
+                         : _verifyPhoneNumber(context,"905345130437",paymentMethodModel, cartModel),//placeOrder(paymentMethodModel, cartModel),
                 icon: const Icon(
                   CupertinoIcons.check_mark_circled_solid,
                   size: 20,
@@ -605,7 +632,7 @@ _sendVerificationCode();
     
     ///show dailog of phone verfication
  //loginSMS(context);
- await _verifyPhoneNumber(context,"905345130437");
+ 
     final currencyRate =
         Provider.of<AppModel>(context, listen: false).currencyRate;
     final cartModel = Provider.of<CartModel>(context, listen: false);

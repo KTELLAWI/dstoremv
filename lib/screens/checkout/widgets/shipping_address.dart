@@ -21,6 +21,7 @@ import '../../../widgets/common/common_safe_area.dart';
 import '../../../widgets/common/flux_image.dart';
 import '../../../widgets/common/place_picker.dart';
 import '../choose_address_screen.dart';
+import "global.dart";
 
 part 'shipping_address_extension.dart';
 
@@ -160,6 +161,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
             final phoneNumber =
                 _textControllers[AddressFieldType.phoneNumber]?.text.trim();
             if (phoneNumber?.isNotEmpty ?? false) {
+              initialPhoneNumber2=kPhoneNumberConfig!.countryCodeDefault!+kPhoneNumberConfig!.dialCodeDefault!+phoneNumber!;
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
                   dialCode: kPhoneNumberConfig.dialCodeDefault,
