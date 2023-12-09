@@ -135,7 +135,7 @@ Future<void> _verifyPhoneNumbera(PaymentMethodModel paymentMethodModel, CartMode
         ScaffoldMessenger.of(context), "تم  التحقق");
       
       placeOrder(paymentMethodModel, cartModel);
-      Navigator.pop(context);
+      //Navigator.pop(context);
 
       
 
