@@ -45,7 +45,7 @@ class _TimelineTrackingState extends State<TimelineTracking> {
     StatusOrder.pendding,
     StatusOrder.failed,
     StatusOrder.processing,
-    StatusOrder.shipped
+    StatusOrder.shipped,
     StatusOrder.completed
   ];
 
@@ -53,7 +53,7 @@ class _TimelineTrackingState extends State<TimelineTracking> {
     StatusOrder.pendding,
     StatusOrder.onHold,
     StatusOrder.processing,
-    StatusOrder.shipped
+    StatusOrder.shipped,
     StatusOrder.completed,
     StatusOrder.refunded
   ];
