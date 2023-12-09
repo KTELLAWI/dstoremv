@@ -963,37 +963,37 @@ _sendVerificationCode( paymentMethodModel,cartModel);
       // }
 
       // Use WebView Payment per frameworks
-      // Services().widget.placeOrder(
-      //   context,
-      //   cartModel: cartModel,
-      //   onLoading: widget.onLoading,
-      //   paymentMethod: paymentMethod,
-      //   success: (Order? order) async {
-      //     if (order != null) {
-      //       for (var item in order.lineItems) {
-      //         var product = cartModel.getProductById(item.productId!);
-      //         if (product?.bookingInfo != null) {
-      //           product!.bookingInfo!.idOrder = order.id;
-      //           var booking = await createBooking(product.bookingInfo)!;
+      Services().widget.placeOrder(
+        context,
+        cartModel: cartModel,
+        onLoading: widget.onLoading,
+        paymentMethod: paymentMethod,
+        success: (Order? order) async {
+          if (order != null) {
+            for (var item in order.lineItems) {
+              var product = cartModel.getProductById(item.productId!);
+              if (product?.bookingInfo != null) {
+                product!.bookingInfo!.idOrder = order.id;
+                var booking = await createBooking(product.bookingInfo)!;
 
-      //           Tools.showSnackBar(ScaffoldMessenger.of(context),
-      //               booking ? 'Booking success!' : 'Booking error!');
-      //         }
-      //       }
-      //       widget.onFinish!(order);
-      //     }
-      //     widget.onLoading?.call(false);
-      //     isPaying = false;
-      //   },
-      //   error: (message) {
-      //     widget.onLoading?.call(false);
-      //     if (message != null) {
-      //       Tools.showSnackBar(ScaffoldMessenger.of(context), message);
-      //     }
+                Tools.showSnackBar(ScaffoldMessenger.of(context),
+                    booking ? 'Booking success!' : 'Booking error!');
+              }
+            }
+            widget.onFinish!(order);
+          }
+          widget.onLoading?.call(false);
+          isPaying = false;
+        },
+        error: (message) {
+          widget.onLoading?.call(false);
+          if (message != null) {
+            Tools.showSnackBar(ScaffoldMessenger.of(context), message);
+          }
 
-      //     isPaying = false;
-      //   },
-      // );
+          isPaying = false;
+        },
+      );
     }
   }
 
