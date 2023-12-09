@@ -611,8 +611,8 @@ class WooCommerceService extends BaseServices {
       var response = await httpPost(endPoint.toUri()!,
           body: convert.jsonEncode({
             'authorization_code': token,
-            'first_name': "firstName",
-            'last_name': "lastName",
+            'first_name': firstName,
+            'last_name': lastName,
             'team_id': "7KA9SCJT3Y",//kLoginSetting.appleLoginSetting?.appleAccountTeamID,
             'bundle_id':"com.inpaket.store"// kLoginSetting.appleLoginSetting?.iOSBundleId,
           }),
