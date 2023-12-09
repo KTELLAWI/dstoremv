@@ -161,7 +161,6 @@ class _ShippingAddressState extends State<ShippingAddress> {
             final phoneNumber =
                 _textControllers[AddressFieldType.phoneNumber]?.text.trim();
             if (phoneNumber?.isNotEmpty ?? false) {
-              initialPhoneNumber2=kPhoneNumberConfig!.countryCodeDefault!+kPhoneNumberConfig!.dialCodeDefault!+phoneNumber!;
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
                   dialCode: kPhoneNumberConfig.dialCodeDefault,
@@ -533,6 +532,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                 }
                               },
                               onSaved: (value) {
+                                initialPhoneNumber2 = value.phoneNumber;
                                 onTextFieldSaved(
                                   value.phoneNumber,
                                   currentFieldType,
