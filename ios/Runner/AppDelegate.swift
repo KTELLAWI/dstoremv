@@ -10,7 +10,7 @@ import UserNotifications
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        GMSServices.provideAPIKey(Environment.googleApiKeyIos)
+        GMSServices.provideAPIKey("AIzaSyArrodLnXL7dHJHi5bHZ7H2SbsAmP8XQAg")
         GeneratedPluginRegistrant.register(with: self)
         if #available(iOS 10.0, *) {
             application.applicationIconBadgeNumber = 0 // Clear Badge Counts
