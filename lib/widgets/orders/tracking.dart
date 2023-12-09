@@ -10,7 +10,8 @@ enum StatusOrder {
   cancelled,
   processing,
   completed,
-  refunded
+  refunded,
+  shipped,
 }
 
 class TimelineTracking extends StatefulWidget {
@@ -35,13 +36,16 @@ class _TimelineTrackingState extends State<TimelineTracking> {
     StatusOrder.pendding,
     StatusOrder.onHold,
     StatusOrder.processing,
+    StatusOrder.shipped,    
     StatusOrder.completed
+    
   ];
 
   var statusOrderSuccessIsFail = [
     StatusOrder.pendding,
     StatusOrder.failed,
     StatusOrder.processing,
+    StatusOrder.shipped
     StatusOrder.completed
   ];
 
@@ -49,6 +53,7 @@ class _TimelineTrackingState extends State<TimelineTracking> {
     StatusOrder.pendding,
     StatusOrder.onHold,
     StatusOrder.processing,
+    StatusOrder.shipped
     StatusOrder.completed,
     StatusOrder.refunded
   ];
@@ -239,6 +244,11 @@ class _TimelineTrackingState extends State<TimelineTracking> {
         statusOrder = StatusOrder.completed;
         flowHandleStatus = statusOrderSuccessNotFail;
         break;
+        case 'shipped': //Thể hiện timeline : Pendding(active) -> On-Hold(active) -> Processing(active) -> Completed(active)
+        statusOrder = StatusOrder.shipped;
+        flowHandleStatus = statusOrderSuccessNotFail;
+        break;
+
 
       case 'failed': //Thể hiện timeline : Pendding(active) -> Failed(active) -> Processing -> Completed
         statusOrder = StatusOrder.failed;
@@ -282,6 +292,8 @@ class _TimelineTrackingState extends State<TimelineTracking> {
       case StatusOrder.refunded:
         return HexColor(kOrderStatusColor['refunded']!);
       case StatusOrder.processing:
+        return HexColor(kOrderStatusColor['processing']!);
+         case StatusOrder.shipped:
         return HexColor(kOrderStatusColor['processing']!);
       default:
         return Colors.white;
