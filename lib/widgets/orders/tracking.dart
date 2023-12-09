@@ -294,7 +294,7 @@ class _TimelineTrackingState extends State<TimelineTracking> {
       case StatusOrder.processing:
         return HexColor(kOrderStatusColor['processing']!);
          case StatusOrder.shipped:
-        return HexColor(kOrderStatusColor['processing']!);
+        return Colors.orange;//HexColor(kOrderStatusColor['processing']!);
       default:
         return Colors.white;
     }
