@@ -133,8 +133,10 @@ Future<void> _verifyPhoneNumbera(PaymentMethodModel paymentMethodModel, CartMode
       print('Phone number verified!');
       Tools.showSnackBar(
         ScaffoldMessenger.of(context), "تم  التحقق");
-      Navigator.pop(context);
+      
       placeOrder(paymentMethodModel, cartModel);
+      Navigator.pop(context);
+
       
 
       
