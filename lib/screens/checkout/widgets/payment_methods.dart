@@ -611,7 +611,8 @@ _sendVerificationCode( paymentMethodModel,cartModel);
                     : () => isPaying || selectedId == null
                         ? showSnackbar
                         //://print("no function to excuteeeeeeeeeeeeeeeeeeeeeeeee"),
-                         : _verifyPhoneNumber(context,"905345130437",paymentMethodModel, cartModel),//placeOrder(paymentMethodModel, cartModel),
+                         //: _verifyPhoneNumber(context,"905345130437",paymentMethodModel, cartModel),//
+                        : placeOrder(paymentMethodModel, cartModel),
                 icon: const Icon(
                   CupertinoIcons.check_mark_circled_solid,
                   size: 20,
@@ -654,13 +655,13 @@ _sendVerificationCode( paymentMethodModel,cartModel);
 
       var productList = cartModel.getProductsInCart();
 
-      // Services().firebase.firebaseAnalytics?.logAddPaymentInfo(
-      //       coupon: cartModel.couponObj?.code,
-      //       currency: cartModel.currencyCode,
-      //       data: productList,
-      //       paymentType: paymentMethod.title,
-      //       price: cartModel.getSubTotal(),
-      //     );
+      Services().firebase.firebaseAnalytics?.logAddPaymentInfo(
+            coupon: cartModel.couponObj?.code,
+            currency: cartModel.currencyCode,
+            data: productList,
+            paymentType: paymentMethod.title,
+            price: cartModel.getSubTotal(),
+          );
 
       /// Use Native payment
 
