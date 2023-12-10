@@ -1,18 +1,13 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.inpaket.store">
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-
-    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
-
+    <uses-permission android:name="com.google.android.gms.permission.CHECK_LICENSE" />
     <!-- Use for showing notification -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
@@ -29,10 +24,6 @@
     <queries>
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
 
-        <!-- Use for speech recognition permission -->
-        <intent>
-            <action android:name="android.speech.RecognitionService" />
-        </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="https" />
@@ -79,13 +70,10 @@
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true"
         android:fullBackupContent="@xml/backup_rules"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:usesCleartextTraffic="true"
-        android:allowBackup="true"
-        tools:replace="android:usesCleartextTraffic,android:allowBackup">
+        android:usesCleartextTraffic="true">
 
 
         <activity
