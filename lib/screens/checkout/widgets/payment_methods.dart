@@ -611,8 +611,8 @@ _sendVerificationCode( paymentMethodModel,cartModel);
                     : () => isPaying || selectedId == null
                         ? showSnackbar
                         //://print("no function to excuteeeeeeeeeeeeeeeeeeeeeeeee"),
-                         : _verifyPhoneNumber(context,"905345130437",paymentMethodModel, cartModel),//
-                        //: placeOrder(paymentMethodModel, cartModel),
+                        // : _verifyPhoneNumber(context,"905345130437",paymentMethodModel, cartModel),//
+                        : placeOrder(paymentMethodModel, cartModel),
                 icon: const Icon(
                   CupertinoIcons.check_mark_circled_solid,
                   size: 20,

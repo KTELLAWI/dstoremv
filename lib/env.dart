@@ -1491,14 +1491,14 @@ Map<String, dynamic> environment = {
   /// ➡️ lib/common/loading.dart
   "loadingIcon": {"size": 30.0, "type": "fadingCube"},
   "splashScreen": {
-    "enable": false,
+    "enable": true,
 
     /// duration in milliseconds, used for all types except "rive" and "flare"
     "duration": 2000,
 
     ///  Type should be: 'fade-in', 'zoom-in', 'zoom-out', 'top-down', 'rive', 'flare', ''static'
-    "type": "flare",
-    "image": "assets/images/splashscreen.flr",
+    "type": "static",
+    "image": "assets/images/splashscreen.png",
 
     /// AnimationName's is used for 'rive' and 'flare' type
     "animationName": "fluxstore",
