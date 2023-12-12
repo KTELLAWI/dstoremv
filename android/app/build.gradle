@@ -106,8 +106,8 @@ android {
 //        targetSdkVersion flutter.targetSdkVersion
         targetSdkVersion 33
 
-        versionCode 6001
-        versionName "1.0.4"
+        versionCode 9000
+        versionName "1.0.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         resConfigs "en"
