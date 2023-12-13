@@ -552,6 +552,12 @@ class PlacePickerState extends State<PlacePicker> with GoogleMapMixin {
               locality = item['short_name'];
             }
           }
+             if (types.contains('postal_code')) {
+              zip = item['long_name'];
+            // if (locality!.isEmpty) {
+            //   locality = item['short_name'];
+            // }
+          }
           if (types.contains('route')) {
             if (road!.isEmpty) {
               road = item['long_name'];
@@ -559,11 +565,11 @@ class PlacePickerState extends State<PlacePicker> with GoogleMapMixin {
           }
           if (types.contains('country')) {
             country = item['short_name'];
-            if (types.contains('postal_code')) {
-              if (zip!.isEmpty) {
-                zip = item['long_name'];
-              }
-            }
+            // if (types.contains('postal_code')) {
+            //   if (zip!.isEmpty) {
+            //     zip = item['long_name'];
+            //   }
+            // }
           }
 
           setState(() {
