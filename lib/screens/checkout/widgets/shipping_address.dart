@@ -358,19 +358,21 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                           elevation: 0.0,
                                         ),
                                         onPressed: () async {
+                                          print("sultssssssssssssssssssssss");
+                                         
                                           final result =
                                               await Navigator.of(context).push(
                                             MaterialPageRoute(
-                                              builder: (context) => PlacePicker(
-                                                kIsWeb
-                                                    ? kGoogleApiKey.web
-                                                    : isIos
-                                                        ? kGoogleApiKey.ios
-                                                        : kGoogleApiKey.android,
+                                              builder: (context) => PlacePicker("AIzaSyCJ9zjN2U8pNQff9Xd-rMVEfkuYieAFF-0"
+                                                // kIsWeb
+                                                //     ? kGoogleApiKey.web
+                                                //     : isIos
+                                                //         ? kGoogleApiKey.ios
+                                                //         : kGoogleApiKey.android,
                                               ),
                                             ),
                                           );
-
+ print(result);
                                           if (result is LocationResult) {
                                             address!.country = result.country;
                                             address!.street = result.street;
