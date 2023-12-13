@@ -358,7 +358,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                           elevation: 0.0,
                                         ),
                                         onPressed: () async {
-                                          print("sultssssssssssssssssssssss");
+                                          
                                          
                                           final result =
                                               await Navigator.of(context).push(
@@ -372,8 +372,18 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                               ),
                                             ),
                                           );
- print(result);
+
                                           if (result is LocationResult) {
+                                            print("sultssssssssssssssssssssss");
+                                             print(result.name);
+                                             print(result.zip);
+                                             print(result.city);
+                                             print(result.state);
+                                             print(result.country);
+                                             print(result.street);
+                                             print(result.locality);
+
+                                             
                                             address!.country = result.country;
                                             address!.street = result.street;
                                             address!.state = result.state;
