@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_single_quotes, lines_longer_than_80_chars final
 Map<String, dynamic> environment = {
-  "appConfig": "lib/config/config_en.json",
+  "appConfig": "https://inpaket.com/wp-content/uploads/flutter_config_files/config_ar.json",
   "serverConfig": {
     'type': 'wcfm',
    "url": "https://inpaket.com",
@@ -84,8 +84,8 @@ Map<String, dynamic> environment = {
     /// set isCaching to true if you have upload the config file to mstore-api
     /// set kIsResizeImage to true if you have finished running Re-generate image plugin
     /// ref: https://support.inspireui.com/help-center/articles/3/8/19/app-performance
-    "isCaching": false,
-    "kIsResizeImage": false,
+    "isCaching": true,
+    "kIsResizeImage": true,
     "httpCache": true,
 
     /// Stripe payment only: set currencyCode and smallestUnitRate.
