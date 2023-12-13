@@ -503,7 +503,7 @@ class PlacePickerState extends State<PlacePicker> with GoogleMapMixin {
   void reverseGeocodeLatLng(LatLng latLng) {
     http
         .get(
-            'https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.latitude},${latLng.longitude}&key=${widget.apiKey}'
+            'https://maps.googleapis.com/maps/api/geocode/json?latlng=${latLng.latitude},${latLng.longitude}&language=ar&key=${widget.apiKey}'
                 .toUri()!)
         .then((response) {
       Map<String, dynamic> responseJson = jsonDecode(response.body);
@@ -884,3 +884,5 @@ class RichSuggestion extends StatelessWidget {
     return result;
   }
 }
+
+/// This widget is customize from the place_picker - https://pub.dev/packages/place_picker

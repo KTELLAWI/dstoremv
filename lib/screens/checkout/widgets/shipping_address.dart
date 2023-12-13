@@ -327,10 +327,16 @@ class _ShippingAddressState extends State<ShippingAddress> {
                           );
                         }
 
-                        if (currentFieldType == AddressFieldType.state &&
-                            (states?.isNotEmpty ?? false)) {
-                          return renderStateInput();
-                        }
+                        // if (currentFieldType == AddressFieldType.state &&
+                        //     (states?.isNotEmpty ?? false)) {
+                        //   return 
+                        //   //Text("ffff");
+                        // renderStateInput();
+                        // }
+                        // if(currentFieldType == AddressFieldType.state && address!.state !=""){
+                        //  return Text(address!.state.toString());
+                        // }
+
 
                         if (currentFieldType == AddressFieldType.city &&
                             (cities?.isNotEmpty ?? false)) {
