@@ -369,12 +369,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                           final result =
                                               await Navigator.of(context).push(
                                             MaterialPageRoute(
-                                              builder: (context) => PlacePicker("AIzaSyCJ9zjN2U8pNQff9Xd-rMVEfkuYieAFF-0"
-                                                // kIsWeb
-                                                //     ? kGoogleApiKey.web
-                                                //     : isIos
-                                                //         ? kGoogleApiKey.ios
-                                                //         : kGoogleApiKey.android,
+                                              builder: (context) => PlacePicker(
+                                                //"AIzaSyCJ9zjN2U8pNQff9Xd-rMVEfkuYieAFF-0"
+                                                kIsWeb
+                                                    ? kGoogleApiKey.web
+                                                    : isIos
+                                                        ? kGoogleApiKey.ios
+                                                        : kGoogleApiKey.android,
                                               ),
                                             ),
                                           );
