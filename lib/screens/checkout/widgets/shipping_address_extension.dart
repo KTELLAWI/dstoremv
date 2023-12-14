@@ -396,7 +396,7 @@ extension on _ShippingAddressState {
       return validateEmail(val);
     }
     if (val == null && type == AddressFieldType.zipCode) {
-      return ;
+      return null;
     }
     return null;
   }
