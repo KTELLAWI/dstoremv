@@ -83,6 +83,7 @@ Future<void> _sendVerificationCode(PaymentMethodModel paymentMethodModel, CartMo
 
         // Show a dialog to enter the verification code
         await showDialog(
+          barrierDismissible:false
           context: context,
           builder: (context) => AlertDialog(
             title: Text('من فضلك ادخل الكود'),
@@ -100,6 +101,14 @@ Future<void> _sendVerificationCode(PaymentMethodModel paymentMethodModel, CartMo
                   Navigator.pop(context);
                 },
                 child: Text('تاكيد'),
+              ),
+                 TextButton(
+                onPressed: () async {
+                  // Verify the phone number
+                 
+                  Navigator.pop(context);
+                },
+                child: Text('رجوع'),
               ),
             ],
           ),
