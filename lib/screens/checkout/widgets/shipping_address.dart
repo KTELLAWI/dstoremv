@@ -609,6 +609,9 @@ class _ShippingAddressState extends State<ShippingAddress> {
                               ? TextInputAction.next
                               : TextInputAction.done,
                           validator: (val) {
+                            if (currentFieldType == AddressFieldType.zipCode){
+                              return null ;
+                            }
                             final config = _configs[index];
                             if (config == null) {
                               return null;
