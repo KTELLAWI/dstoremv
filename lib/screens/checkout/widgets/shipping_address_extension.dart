@@ -427,6 +427,12 @@ extension on _ShippingAddressState {
             child: OutlinedButton.icon(
               style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () {
+                if ( _textControllers[AddressFieldType.country]?.text ||
+       
+    _textControllers[AddressFieldType.state]?.text == ""){
+      return ;
+    }
+        address?.state?.trim() ?? '';)
                 if (!checkToSave()) return;
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
