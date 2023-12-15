@@ -335,7 +335,8 @@ class _ShippingAddressState extends State<ShippingAddress> {
                         }
                          if (currentFieldType == AddressFieldType.state &&
                             (states?.isEmpty ?? true)) {
-                          return Text("chosssssss");
+                          return return validateField(
+            val, config, AddressFieldType.unknown);
                           //Text("ffff");
                         renderStateInput();
                         }
