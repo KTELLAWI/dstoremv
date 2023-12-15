@@ -401,6 +401,11 @@ extension on _ShippingAddressState {
     if (val == null && type == AddressFieldType.zipCode) {
       return null;
     }
+    {
+      if (address.state == null){
+ return S.of(context).theFieldIsRequired("label");
+      }
+    }
     return null;
   }
 
