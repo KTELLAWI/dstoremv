@@ -427,9 +427,9 @@ extension on _ShippingAddressState {
             child: OutlinedButton.icon(
               style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () {
-                           if ( _textControllers[AddressFieldType.country]?.text == "" ||
+                           if ( _textControllers[AddressFieldType.country]?.text == null ||
        
-    _textControllers[AddressFieldType.state]?.text == ""){
+    _textControllers[AddressFieldType.state]?.text == null){
       return ;
     }
                 if (!checkToSave()) return;
