@@ -110,7 +110,16 @@ extension on _ShippingAddressState {
   /// on tap to Next Button
   void _onNext() {
     {
-      if (_formKey.currentState!.validate()) {
+                                 if ( _textControllers[AddressFieldType.country]?.text == null ||
+       
+    _textControllers[AddressFieldType.state]?.text == null){
+      FlashHelper.errorMessage(
+          context,
+          message: S.of(context).pleaseInput,
+        );
+      
+    }
+      if (_formKey.currentState!.validate() && isState == false) {
         _formKey.currentState!.save();
         Provider.of<CartModel>(context, listen: false).setAddress(address);
         _loadShipping(beforehand: false);
@@ -125,6 +134,10 @@ extension on _ShippingAddressState {
   }
 
   Widget renderStateInput() {
+if (states == null ) {
+    // Handle the case where either states or address is null.
+    return Container(); // You can return an empty container or another placeholder widget.
+  }
     var items = <DropdownMenuItem>[];
     for (var item in states!) {
       items.add(
@@ -427,11 +440,7 @@ extension on _ShippingAddressState {
             child: OutlinedButton.icon(
               style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () {
-                           if ( _textControllers[AddressFieldType.country]?.text == null ||
-       
-    _textControllers[AddressFieldType.state]?.text == null){
-      return ;
-    }
+
                 if (!checkToSave()) return;
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();

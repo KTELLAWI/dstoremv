@@ -38,6 +38,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
   String get langCode => Provider.of<AppModel>(context, listen: false).langCode;
 
   final _formKey = GlobalKey<FormState>();
+   
 
   final Map<int, AddressFieldType> _fieldPosition = {};
 
@@ -75,6 +76,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
   List<CountryState>? states = [];
   List<City>? cities = [];
   bool isVerified = false;
+  bool isState = false;
 
   PhoneNumber? initialPhoneNumber;
 
@@ -327,19 +329,24 @@ class _ShippingAddressState extends State<ShippingAddress> {
                           );
                         }
 
-                        if (currentFieldType == AddressFieldType.state &&
-                            (states?.isNotEmpty ?? false)) {
+                        if (currentFieldType == AddressFieldType.state 
+                        
+                        &&
+                           (states?.isNotEmpty ?? false)
+                           ) 
+                            {
+                              ///isState=false;
                           return 
                           //Text("ffff");
                         renderStateInput();
                         }
-                         if (currentFieldType == AddressFieldType.state &&
-                            (states?.isEmpty ?? true)) {
-                          return return validateField(
-            val, config, AddressFieldType.unknown);
-                          //Text("ffff");
-                        renderStateInput();
-                        }
+                        //  if (currentFieldType == AddressFieldType.state &&
+                        //     (states?.isEmpty ?? true)) {
+                        //       isState=true;
+                        //   return
+                        //   Text("أدخل البلد و المحافظة بشكل صحيح");
+                       // renderStateInput();
+                      //  }
                         // if(currentFieldType == AddressFieldType.state && address!.state !=""){
                         //  return Text(address!.state.toString());
                         // }
@@ -618,6 +625,9 @@ class _ShippingAddressState extends State<ShippingAddress> {
                           validator: (val) {
                             if (currentFieldType == AddressFieldType.zipCode){
                               return null ;
+                            }
+                              if (currentFieldType == AddressFieldType.state){
+                              return "hhhhhhhhhhhhhhhh" ;
                             }
                             final config = _configs[index];
                             if (config == null) {
