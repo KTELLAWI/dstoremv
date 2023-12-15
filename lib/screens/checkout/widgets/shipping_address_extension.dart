@@ -134,10 +134,6 @@ extension on _ShippingAddressState {
   }
 
   Widget renderStateInput() {
-if (states == null ) {
-    // Handle the case where either states or address is null.
-    return Container(); // You can return an empty container or another placeholder widget.
-  }
     var items = <DropdownMenuItem>[];
     for (var item in states!) {
       items.add(
