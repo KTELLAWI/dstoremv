@@ -627,7 +627,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                               return null ;
                             }
                               if (currentFieldType == AddressFieldType.state){
-                                if (val == null ){ 
+                                if (val == "" ){ 
                               return "يرجى تعبئة حقل المحافطة" ;}
                             }
                             final config = _configs[index];
