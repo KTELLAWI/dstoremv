@@ -2,7 +2,7 @@
 Map<String, dynamic> environment = {
   "appConfig": "https://inpaket.com/wp-content/uploads/flutter_config_files/config_ar.json",
   "serverConfig": {
-    'type': 'wcfm',
+    'type': 'woo',
    "url": "https://inpaket.com",
     "type": "woo",
     "consumerKey": "ck_fb37943cc148765fdbd5246e6a063f745c48b12e",
@@ -84,7 +84,7 @@ Map<String, dynamic> environment = {
     /// set isCaching to true if you have upload the config file to mstore-api
     /// set kIsResizeImage to true if you have finished running Re-generate image plugin
     /// ref: https://support.inspireui.com/help-center/articles/3/8/19/app-performance
-    "isCaching": true,
+    "isCaching": false,
     "kIsResizeImage": true,
     "httpCache": true,
 

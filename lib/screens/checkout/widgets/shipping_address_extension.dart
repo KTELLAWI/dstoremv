@@ -153,6 +153,8 @@ extension on _ShippingAddressState {
     }
       if (firstState == null) {
       value =states![0].id;
+      address!.state=states![0].id.toString();
+       refresh();
     }
     return DropdownButton(
       items: items,
