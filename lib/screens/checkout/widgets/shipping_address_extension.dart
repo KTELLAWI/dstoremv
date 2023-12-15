@@ -142,6 +142,9 @@ extension on _ShippingAddressState {
     if (firstState != null) {
       value = address!.state;
     }
+      if (firstState == null) {
+      value =states[0].id;
+    }
     return DropdownButton(
       items: items,
       value: value,
