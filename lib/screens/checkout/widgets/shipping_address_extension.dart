@@ -402,7 +402,7 @@ extension on _ShippingAddressState {
       return null;
     }
     {
-      if (address.state == null){
+      if (address?.state == null){
  return S.of(context).theFieldIsRequired("label");
       }
     }
@@ -427,7 +427,7 @@ extension on _ShippingAddressState {
             child: OutlinedButton.icon(
               style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () {
-                           if ( _textControllers[AddressFieldType.country]?.text ||
+                           if ( _textControllers[AddressFieldType.country]?.text == "" ||
        
     _textControllers[AddressFieldType.state]?.text == ""){
       return ;
