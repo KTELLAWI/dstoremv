@@ -333,6 +333,12 @@ class _ShippingAddressState extends State<ShippingAddress> {
                           //Text("ffff");
                         renderStateInput();
                         }
+                         if (currentFieldType == AddressFieldType.state &&
+                            (states?.isEmpty ?? true)) {
+                          return Text("chosssssss");
+                          //Text("ffff");
+                        renderStateInput();
+                        }
                         // if(currentFieldType == AddressFieldType.state && address!.state !=""){
                         //  return Text(address!.state.toString());
                         // }
