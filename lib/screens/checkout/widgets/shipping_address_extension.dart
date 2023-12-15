@@ -143,7 +143,7 @@ extension on _ShippingAddressState {
       value = address!.state;
     }
       if (firstState == null) {
-      value =states[0].id;
+      value =states![0].id;
     }
     return DropdownButton(
       items: items,
