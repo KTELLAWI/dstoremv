@@ -960,7 +960,7 @@ Map<String, dynamic> environment = {
     /// Enable the Google Maps picker from Billing Address.
     "allowSearchingAddress": true,
 
-    "GuestCheckout": true,
+    "GuestCheckout": false,
 
     /// Enable Payment option
     "EnableOnePageCheckout": false,

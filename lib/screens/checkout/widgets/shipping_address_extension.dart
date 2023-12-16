@@ -109,16 +109,7 @@ extension on _ShippingAddressState {
 
   /// on tap to Next Button
   void _onNext() {
-    {
-                                 if ( _textControllers[AddressFieldType.country]?.text == null ||
-       
-    _textControllers[AddressFieldType.state]?.text == null){
-      FlashHelper.errorMessage(
-          context,
-          message: S.of(context).pleaseInput,
-        );
-      
-    }
+ 
       if (_formKey.currentState!.validate() && isState == false) {
         _formKey.currentState!.save();
         Provider.of<CartModel>(context, listen: false).setAddress(address);
@@ -131,7 +122,7 @@ extension on _ShippingAddressState {
         );
       }
     }
-  }
+
 
   Widget renderStateInput() {
     var items = <DropdownMenuItem>[];
