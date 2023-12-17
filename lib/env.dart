@@ -103,82 +103,82 @@ Map<String, dynamic> environment = {
       /// 100 cents = 1 usd
     },
     "Currencies": [
-      {
-        "symbol": "\$",
-        "decimalDigits": 2,
-        "symbolBeforeTheNumber": true,
-        "currency": "USD",
-        "currencyCode": "USD",
-        "smallestUnitRate": 100,
+      // {
+      //   "symbol": "\$",
+      //   "decimalDigits": 2,
+      //   "symbolBeforeTheNumber": true,
+      //   "currency": "USD",
+      //   "currencyCode": "USD",
+      //   "smallestUnitRate": 100,
 
-        /// 100 cents = 1 usd
-      },
-      {
-        "symbol": "₹",
-        "decimalDigits": 0,
-        "symbolBeforeTheNumber": true,
-        "currency": "INR",
-        "currencyCode": "INR",
-      },
-      {
-        "symbol": "đ",
-        "decimalDigits": 2,
-        "symbolBeforeTheNumber": false,
-        "currency": "VND",
-        "currencyCode": "VND",
-      },
-      {
-        "symbol": "€",
-        "decimalDigits": 2,
-        "symbolBeforeTheNumber": true,
-        "currency": "EUR",
-        "currencyCode": "EUR",
-      },
-      {
-        "symbol": "£",
-        "decimalDigits": 2,
-        "symbolBeforeTheNumber": true,
-        "currency": "Pound sterling",
-        "currencyCode": "GBP",
-        "smallestUnitRate": 100,
+      //   /// 100 cents = 1 usd
+      // },
+      // {
+      //   "symbol": "₹",
+      //   "decimalDigits": 0,
+      //   "symbolBeforeTheNumber": true,
+      //   "currency": "INR",
+      //   "currencyCode": "INR",
+      // },
+      // {
+      //   "symbol": "đ",
+      //   "decimalDigits": 2,
+      //   "symbolBeforeTheNumber": false,
+      //   "currency": "VND",
+      //   "currencyCode": "VND",
+      // },
+      // {
+      //   "symbol": "€",
+      //   "decimalDigits": 2,
+      //   "symbolBeforeTheNumber": true,
+      //   "currency": "EUR",
+      //   "currencyCode": "EUR",
+      // },
+      // {
+      //   "symbol": "£",
+      //   "decimalDigits": 2,
+      //   "symbolBeforeTheNumber": true,
+      //   "currency": "Pound sterling",
+      //   "currencyCode": "GBP",
+      //   "smallestUnitRate": 100,
 
-        /// 100 pennies = 1 pound
-      },
-      {
-        'symbol': 'AR\$',
-        'decimalDigits': 2,
-        'symbolBeforeTheNumber': true,
-        'currency': 'ARS',
-        'currencyCode': 'ARS',
-      },
-      {
-        'symbol': 'R',
-        'decimalDigits': 2,
-        'symbolBeforeTheNumber': true,
-        'currency': 'ZAR',
-        'currencyCode': 'ZAR',
-      },
-      {
-        'symbol': '₱',
-        'decimalDigits': 2,
-        'symbolBeforeTheNumber': true,
-        'currency': 'PHP',
-        'currencyCode': 'PHP',
-      },
-      {
-        'symbol': 'Rp',
-        'decimalDigits': 2,
-        'symbolBeforeTheNumber': true,
-        'currency': 'IDR',
-        'currencyCode': 'IDR',
-      },
-      {
-        'symbol': 'SAR',
-        'decimalDigits': 2,
-        'symbolBeforeTheNumber': true,
-        'currency': 'Saudi Riyal',
-        'currencyCode': 'SAR',
-      }
+      //   /// 100 pennies = 1 pound
+      // },
+      // {
+      //   'symbol': 'AR\$',
+      //   'decimalDigits': 2,
+      //   'symbolBeforeTheNumber': true,
+      //   'currency': 'ARS',
+      //   'currencyCode': 'ARS',
+      // },
+      // {
+      //   'symbol': 'R',
+      //   'decimalDigits': 2,
+      //   'symbolBeforeTheNumber': true,
+      //   'currency': 'ZAR',
+      //   'currencyCode': 'ZAR',
+      // },
+      // {
+      //   'symbol': '₱',
+      //   'decimalDigits': 2,
+      //   'symbolBeforeTheNumber': true,
+      //   'currency': 'PHP',
+      //   'currencyCode': 'PHP',
+      // },
+      // {
+      //   'symbol': 'Rp',
+      //   'decimalDigits': 2,
+      //   'symbolBeforeTheNumber': true,
+      //   'currency': 'IDR',
+      //   'currencyCode': 'IDR',
+      // },
+      // {
+      //   'symbol': 'SAR',
+      //   'decimalDigits': 2,
+      //   'symbolBeforeTheNumber': true,
+      //   'currency': 'Saudi Riyal',
+      //   'currencyCode': 'SAR',
+      // }
     ],
 
     /// Below config is used for Magento store
@@ -353,7 +353,6 @@ Map<String, dynamic> environment = {
     "wishlist",
     "notifications",
     "language",
-    "currencies",
     "darkTheme",
     "order",
     "point",
