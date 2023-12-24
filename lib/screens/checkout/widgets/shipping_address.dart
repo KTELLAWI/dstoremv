@@ -165,8 +165,8 @@ class _ShippingAddressState extends State<ShippingAddress> {
             if (phoneNumber?.isNotEmpty ?? false) {
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
-                  dialCode: kPhoneNumberConfig.dialCodeDefault,
-                  isoCode: kPhoneNumberConfig.countryCodeDefault,
+                  dialCode: '+964',  // Iraq country dial code
+                  isoCode: 'IQ',   
                   phoneNumber: phoneNumber,
                 ),
               );
@@ -588,9 +588,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                               selectorTextStyle:
                                   Theme.of(context).textTheme.titleMedium,
                               ignoreBlank: !(_configs[index]?.required ?? true),
-                              initialValue: initialPhoneNumber,
+                               initialValue:   PhoneNumber(
+    dialCode: '+964',  // Iraq country dial code
+    isoCode: 'IQ',     // ISO code for Iraq
+    phoneNumber: _textControllers[AddressFieldType.phoneNumber]?.text.trim(),
+  ),
                               formatInput: kPhoneNumberConfig.formatInput,
-                              countries: kPhoneNumberConfig.customCountryList,
+                               countries: kPhoneNumberConfig.customCountryList,
                               locale: langCode,
                               searchBoxDecoration: InputDecoration(
                                   labelText: S

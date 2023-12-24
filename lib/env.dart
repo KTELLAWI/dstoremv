@@ -26,9 +26,9 @@ Map<String, dynamic> environment = {
   "enableRemoteConfigFirebase": false,
   "enableFirebaseAnalytics": false,
   "loginSMSConstants": {
-    "countryCodeDefault": "US",
-    "dialCodeDefault": "+1",
-    "nameDefault": "United States",
+    "countryCodeDefault": "IQ",
+    "dialCodeDefault": "+964",
+    "nameDefault": "IRAQ",
   },
   // "phoneNumberConfig": {
   //   "enable": false,
@@ -356,7 +356,6 @@ Map<String, dynamic> environment = {
     "darkTheme",
     "order",
     "point",
- 
     "privacy",
     "about",
   ],
@@ -933,9 +932,9 @@ Map<String, dynamic> environment = {
 
   /// ➡️  lib/common/config/payments.dart
   "paymentConfig": {
-    "DefaultCountryISOCode": "US",
+    "DefaultCountryISOCode": "IQ",
 
-    "DefaultStateISOCode": "LA",
+    "DefaultStateISOCode": "AN",
 
     /// Enable the Shipping option from Checkout, support for the Digital Download
     "EnableShipping": true,
