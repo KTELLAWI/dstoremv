@@ -30,27 +30,80 @@ Map<String, dynamic> environment = {
     "dialCodeDefault": "+964",
     "nameDefault": "IRAQ",
   },
-  // "phoneNumberConfig": {
-  //   "enable": false,
-  //   "countryCodeDefault": "US",
-  //   "dialCodeDefault": "+1",
-  //   "useInternationalFormat": true,
-  //   "selectorFlagAsPrefixIcon": true,
-  //   "showCountryFlag": true,
-  //   "customCountryList": [], // List alpha_2_code. E.g: ["VN", "AU"]
-  //   "selectorType": "BOTTOM_SHEET", // [DROPDOWN, BOTTOM_SHEET, DIALOG]
-  // },
   "phoneNumberConfig": {
-    "dialCodeDefault": "+964",
-    "customCountryList": [],
-    "formatInput": false,
-    "selectorFlagAsPrefixIcon": true,
     "enable": true,
     "countryCodeDefault": "IQ",
+    "dialCodeDefault": "+964",
+    "useInternationalFormat": true,
+    "selectorFlagAsPrefixIcon": true,
     "showCountryFlag": true,
-    "selectorType": "BOTTOM_SHEET",
-    "useInternationalFormat": true
+    "customCountryList": [
+  "IQ",  // Iraq
+  "VN",  // Vietnam
+  "AU",  // Australia
+  "US",  // United States
+  "CA",  // Canada
+  "GB",  // United Kingdom
+  "DE",  // Germany
+  "FR",  // France
+  "IT",  // Italy
+  "ES",  // Spain
+  "JP",  // Japan
+  "KR",  // South Korea
+  "CN",  // China
+  "IN",  // India
+  "BR",  // Brazil
+  "MX",  // Mexico
+  "AR",  // Argentina
+  "ZA",  // South Africa
+  "NG",  // Nigeria
+  "EG",  // Egypt
+  "SA",  // Saudi Arabia
+  "RU",  // Russia
+  "TR",  // Turkey
+  "IR",  // Iran
+  "PK",  // Pakistan
+  "ID",  // Indonesia
+  "TH",  // Thailand
+  "MY",  // Malaysia
+  "SG",  // Singapore
+  "PH",  // Philippines
+  "KW",  // Kuwait
+  "AE",  // United Arab Emirates
+  "QA",  // Qatar
+  "NO",  // Norway
+  "SE",  // Sweden
+  "FI",  // Finland
+  "DK",  // Denmark
+  "NL",  // Netherlands
+  "BE",  // Belgium
+  "CH",  // Switzerland
+  "AT",  // Austria
+  "IE",  // Ireland
+  "PT",  // Portugal
+  "GR",  // Greece
+  "PL",  // Poland
+  "CZ",  // Czech Republic
+  "HU",  // Hungary
+  "RO",  // Romania
+  "BG",  // Bulgaria
+  "HR",  // Croatia
+  "SI",  // Slovenia
+  "SK",  // Slovakia
+],
+    "selectorType": "BOTTOM_SHEET", // [DROPDOWN, BOTTOM_SHEET, DIALOG]
   },
+  // "phoneNumberConfig": {
+  //   "dialCodeDefault": "+964",
+  //   "customCountryList": [],
+  //   "formatInput": false,
+  //   "selectorFlagAsPrefixIcon": true,
+  //   "enable": true,
+  //   "countryCodeDefault": "IQ",
+  //   "showCountryFlag": true,
+  //   "selectorType": "BOTTOM_SHEET",
+  //   "useInternationalFormat": true
+  // },
   "appRatingConfig": {
     'showOnOpen': false,
     'android': 'com.inpaket.store',

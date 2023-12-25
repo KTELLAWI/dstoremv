@@ -165,15 +165,18 @@ class _ShippingAddressState extends State<ShippingAddress> {
             if (phoneNumber?.isNotEmpty ?? false) {
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
-                  dialCode: '+964',  // Iraq country dial code
-                  isoCode: 'IQ',   
+                dialCode:  kPhoneNumberConfig.dialCodeDefault,
+                  isoCode: kPhoneNumberConfig.countryCodeDefault,
                   phoneNumber: phoneNumber,
                 ),
               );
             }
+          
           } catch (e, trace) {
             printError(e, trace);
           }
+
+          
         }
 
         /// Load country list.
@@ -567,6 +570,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                               },
                               onSaved: (value) {
                                 initialPhoneNumber2 = value.phoneNumber;
+                                initialPhoneNumber = value;
                                 onTextFieldSaved(
                                   value.phoneNumber,
                                   currentFieldType,
@@ -588,13 +592,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                               selectorTextStyle:
                                   Theme.of(context).textTheme.titleMedium,
                               ignoreBlank: !(_configs[index]?.required ?? true),
-                               initialValue:   PhoneNumber(
-    dialCode: '+964',  // Iraq country dial code
-    isoCode: 'IQ',     // ISO code for Iraq
-    phoneNumber: _textControllers[AddressFieldType.phoneNumber]?.text.trim(),
-  ),
+                               initialValue:initialPhoneNumber == null ? PhoneNumber(isoCode: 'IQ') : initialPhoneNumber, //initialPhoneNumber,
+  //                               PhoneNumber(
+  //   dialCode: '+964',  // Iraq country dial code
+  //   isoCode: 'IQ',     // ISO code for Iraq
+  //  // phoneNumber: _textControllers[AddressFieldType.phoneNumber]?.text.trim(),
+  // ),
                               formatInput: kPhoneNumberConfig.formatInput,
-                               countries: kPhoneNumberConfig.customCountryList,
                               locale: langCode,
                               searchBoxDecoration: InputDecoration(
                                   labelText: S
