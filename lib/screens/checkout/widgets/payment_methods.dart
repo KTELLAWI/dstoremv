@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:quiver/strings.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+
 import '../../../common/config.dart';
 import '../../../common/constants.dart';
 import '../../../common/tools.dart';
@@ -29,7 +30,7 @@ import '../../../widgets/common/common_safe_area.dart';
 import '../../../widgets/html/index.dart';
 import '../../cart/widgets/shopping_cart_sumary.dart';
 import '../../login_sms/login_sms_viewmodel.dart';
-import '../../login_sms/verifyorder.dart';
+import '../../login_sms/verifyOrder.dart';
 import 'codeverification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -60,7 +61,7 @@ String _verificationCode = '';
 bool numberVerfied = false;// Define here
 
 // Send verification code
-Future<void> _sendVerificationCode(PaymentMethodModel paymentMethodModel, CartModel cartModel) async {
+Future<void> _sendVerificationCode() async {
   //Navigator.of(context).pop();
   print(initialPhoneNumber2);
   try {
@@ -80,39 +81,52 @@ Future<void> _sendVerificationCode(PaymentMethodModel paymentMethodModel, CartMo
                   Navigator.pop(context);
         // Save the verification ID for later use
         _verificationId = verificationId;
+         print("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+        print(verificationId);
 
-        // Show a dialog to enter the verification code
-        await showDialog(
-          barrierDismissible:false,
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('من فضلك ادخل الكود'),
-            content: TextField(
-              onChanged: (value) {
-                // Store the entered verification code
-                _verificationCode = value;
-              },
+        // Show a dialog to enter the verification code go to verify screen
+      final verifyed = Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VerifyCodeOrder(
+              verId: verificationId,
+               phoneNumber:initialPhoneNumber2 ,
+              // verifySuccessStream: viewModel.getStreamSuccess,
+              // resendToken: forceCodeResend,
             ),
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  // Verify the phone number
-                  await _verifyPhoneNumbera(paymentMethodModel,cartModel);
-                  Navigator.pop(context);
-                },
-                child: Text('تاكيد'),
-              ),
-                 TextButton(
-                onPressed: () async {
-                  // Verify the phone number
-                 
-                  Navigator.pop(context);
-                },
-                child: Text('رجوع'),
-              ),
-            ],
           ),
         );
+        // await showDialog(
+        //   barrierDismissible:false,
+        //   context: context,
+        //   builder: (context) => AlertDialog(
+        //     title: Text('من فضلك ادخل الكود'),
+        //     content: TextField(
+        //       onChanged: (value) {
+        //         // Store the entered verification code
+        //         _verificationCode = value;
+        //       },
+        //     ),
+        //     actions: [
+        //       TextButton(
+        //         onPressed: () async {
+        //           // Verify the phone number
+        //           await _verifyPhoneNumbera(paymentMethodModel,cartModel);
+        //           Navigator.pop(context);
+        //         },
+        //         child: Text('تاكيد'),
+        //       ),
+        //          TextButton(
+        //         onPressed: () async {
+        //           // Verify the phone number
+                 
+        //           Navigator.pop(context);
+        //         },
+        //         child: Text('رجوع'),
+        //       ),
+        //     ],
+        //   ),
+        // );
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         // Handle code auto-retrieval timeout
@@ -138,12 +152,16 @@ Future<void> _verifyPhoneNumbera(PaymentMethodModel paymentMethodModel, CartMode
    
 
     if (credential != null) {
+      print(credential);
+       print("123456");
+       print(_verificationId);
+       print(_verificationCode);
       // User verified successfully!
       print('Phone number verified!');
       Tools.showSnackBar(
         ScaffoldMessenger.of(context), "تم  التحقق");
       
-      placeOrder(paymentMethodModel, cartModel);
+      //placeOrder(paymentMethodModel, cartModel);
       //Navigator.pop(context);
 
       
@@ -164,7 +182,7 @@ Navigator.pop(context);
   }
 }
 
-   Future<void> _verifyPhoneNumber(BuildContext context, String phoneNumber,PaymentMethodModel paymentMethodModel, CartModel cartModel) async {
+   Future<void> verifyPhoneNumber(BuildContext context, String phoneNumber) async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -181,58 +199,9 @@ Navigator.pop(context);
           );
         },
       );
-_sendVerificationCode( paymentMethodModel,cartModel);
+_sendVerificationCode( );
        
-    // try {
-    //   viewModel.verify(
-    //     autoRetrieve: (String verificationId) {
-    //       // Handle timeout
-    //     },
-    //     smsCodeSent:  (String verificationId, int? resendToken) async {
-    //         Navigator.of(context).pop();
-    //         showModalBottomSheet(
-    //         context: context,
-    //         builder: (BuildContext context) {
-    //           return CodeVerificationScreen(verificationId: "verificationId");
-    //         },
-    //       );
-    //     },
-    //     verifyFailed:(e) {
-    //       // Handle verification failed
-    //     }, 
-    //     startVerify:(e) {
-    //       // Handle verification failed
-    //     }, 
-    //   );
-    //   // await _firebaseServices.verifyPhoneNumber(
-    //   //   phoneNumber: phoneNumber,
-    //   //   verificationCompleted: ( credential) async {
-    //   //     // Auto-retrieval of SMS code completed (e.g., sign in with auto-retrieved OTP)
-    //   //     // You can use the credential to sign in with the user's phone number.
-    //   //   },
-    //   //   verificationFailed: (e) {
-    //   //     // Handle verification failed
-    //   //   },
-    //   //   codeSent: (String verificationId, int? resendToken) async {
-    //   //       Navigator.of(context).pop();
-    //   //       showModalBottomSheet(
-    //   //       context: context,
-    //   //       builder: (BuildContext context) {
-    //   //         return CodeVerificationScreen(verificationId: "verificationId");
-    //   //       },
-    //   //     );
-    //   //     // Save the verification ID somewhere to use it in the next step
-    //   //     // Show bottom modal sheet for entering the code
-    //   //  ;
-    //   //   },
-    //   //   codeAutoRetrievalTimeout: (String verificationId) {
-    //   //     // Handle timeout
-    //   //   },
-    //   // );
-    // } catch (e) {
-    //   // Handle verification initiation failure
-    //   print("Error during phone number verification initiation: $e");
-    // }
+   
   }
 
   // void loginSMS(context) {
@@ -620,7 +589,7 @@ _sendVerificationCode( paymentMethodModel,cartModel);
                     : () => isPaying || selectedId == null
                         ? showSnackbar
                         //://print("no function to excuteeeeeeeeeeeeeeeeeeeeeeeee"),
-                        // : _verifyPhoneNumber(context,"905345130437",paymentMethodModel, cartModel),//
+                      //: _verifyPhoneNumber(context,"905345130437",paymentMethodModel, cartModel),//
                        : placeOrder(paymentMethodModel, cartModel),
                 icon: const Icon(
                   CupertinoIcons.check_mark_circled_solid,

@@ -109,17 +109,28 @@ extension on _ShippingAddressState {
 
   /// on tap to Next Button
   void _onNext() {
- 
-      if (_formKey.currentState!.validate() && isState == false) {
+            
+      if (_formKey.currentState!.validate() && isState == false && isVerificationCompleted ) {
         _formKey.currentState!.save();
         Provider.of<CartModel>(context, listen: false).setAddress(address);
         _loadShipping(beforehand: false);
         widget.onNext!();
       } else {
+        if(!isVerificationCompleted) {
+FlashHelper.errorMessage(
+                    context,
+                    message: 
+    "يجب تأكيد الرقم باستخدام SMS",
+                  );
+            }
+else{
+
+
         FlashHelper.errorMessage(
           context,
           message: S.of(context).pleaseInput,
         );
+        }
       }
     }
 
@@ -397,9 +408,16 @@ extension on _ShippingAddressState {
     if ((val?.isEmpty ?? true) && label != null) {
       return S.of(context).theFieldIsRequired(label);
     }
-    if (val != null && type == AddressFieldType.email) {
+    if (val != null  && type == AddressFieldType.email) {
       return validateEmail(val);
     }
+    //   if ( isVerificationCompleted != true) {
+    
+
+    //   return "يجب تأكيد الرقم باستخدام SMS";
+
+    // }
+    
     if (val == null && type == AddressFieldType.zipCode) {
       return null;
     }
@@ -429,18 +447,31 @@ extension on _ShippingAddressState {
             child: OutlinedButton.icon(
               style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
               onPressed: () {
+                                  ///  print("ccccccccccccccccccccccccccccccccccccccccccc");
 
+                    //print(isVerificationCompleted);
                 if (!checkToSave()) return;
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
+                if (_formKey.currentState!.validate() ) {
+                  if(isVerificationCompleted == true)
+                  {_formKey.currentState!.save();
                   Provider.of<CartModel>(context, listen: false)
                       .setAddress(address);
-                  saveDataToLocal();
+                  saveDataToLocal();}
+                  else{
+                     FlashHelper.errorMessage(
+                    context,
+                    message: 
+    "يجب تأكيد الرقم باستخدام SMS",
+                  );
+                  }
                 } else {
-                  FlashHelper.errorMessage(
+                  
+ FlashHelper.errorMessage(
                     context,
                     message: S.of(context).pleaseInput,
                   );
+                  
+                 
                 }
               },
               icon: const Icon(

@@ -13,6 +13,8 @@ import '../../models/index.dart';
 import '../../services/services.dart';
 import '../../widgets/common/flux_image.dart';
 import '../../widgets/common/login_animation.dart';
+import 'package:firebase_auth/firebase_auth.dart' show PhoneAuthProvider , PhoneAuthCredential ;
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 
 class VerifyCodeOrder extends StatefulWidget {
   final String? phoneNumber;
@@ -44,6 +46,8 @@ class _VerifyCodeOrderState extends State<VerifyCodeOrder>
   var onTapRecognizer;
   int? _resendToken;
   String? _verId;
+  String _verificationCode = ''; 
+ 
 
   @override
   void codeUpdated() {
@@ -58,6 +62,55 @@ class _VerifyCodeOrderState extends State<VerifyCodeOrder>
     _pinCodeController.text = otp ?? '';
     Tools.hideKeyboard(context);
   }
+   Future<void> _verifyPhoneNumbera(smsCode) async {
+  try {
+
+    //  final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+    //   verificationId: widget.verId!,
+    //   smsCode: "123456",
+    // );
+
+     final credential = Services().firebase.getFirebaseCredential(
+            verificationId: widget.verId!,
+            smsCode: smsCode,
+          );
+          //await _signInWithCredential(credential);
+ final userrr =   await FirebaseAuth.instance.signInWithCredential(credential);
+ //final user = userrr!.user;  
+
+    if (userrr != null)  {
+      print(userrr);
+      print(widget.verId!);
+       //print(user!.uid);
+      // User verified successfully!
+      print('Phone number verifieddddddddddddddddddddddddddddddddddddddddddddddddddddddd!');
+      Tools.showSnackBar(
+        ScaffoldMessenger.of(context), "تم  التحقق");
+       _stopAnimation();
+                  // NavigateTools.navigateAfterLogin(user, context);
+//Navigator.pop(context);
+     /// placeOrder(paymentMethodModel, cartModel);
+      //Navigator.pop(context);
+
+      
+
+      
+    } else {
+       _stopAnimation();
+          Tools.showSnackBar(
+        ScaffoldMessenger.of(context), "فشل التحقق");
+           print('Nooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!');
+
+      ////snacbar fail/
+      //
+      // Invalid code entered
+Navigator.pop(context);
+  
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+}
 
   @override
   void initState() {
@@ -70,10 +123,12 @@ class _VerifyCodeOrderState extends State<VerifyCodeOrder>
 
     onTapRecognizer = TapGestureRecognizer()
       ..onTap = () {
+        _pinCodeController.clear();
         _playAnimation();
         Future autoRetrieve(String verId) {
           return _stopAnimation();
         }
+          
 
         Future smsCodeSent(String verId, [int? forceCodeResend]) {
           _resendToken = forceCodeResend;
@@ -94,6 +149,8 @@ class _VerifyCodeOrderState extends State<VerifyCodeOrder>
               forceResendingToken: _resendToken,
               verificationFailed: verifyFailed,
             );
+
+       // _verifyPhoneNumbera();
       };
 
     _loginButtonController = AnimationController(
@@ -322,6 +379,7 @@ class _VerifyCodeOrderState extends State<VerifyCodeOrder>
                     _loginButtonController.view as AnimationController,
                 onTap: () {
                   if (_pinCodeController.text.trim().length == 6) {
+                    _verificationCode = _pinCodeController.text.trim();
                     _loginSMS(_pinCodeController.text, context);
                   }
                 },
@@ -338,26 +396,38 @@ class _VerifyCodeOrderState extends State<VerifyCodeOrder>
         .firebase
         .loginFirebaseCredential(credential: credential);
     if (user != null) {
-      if (widget.callback != null) {
-        await _stopAnimation();
-        widget.callback!(_pinCodeController.text, user);
-        Navigator.pop(context);
-      } else {
-        await Provider.of<UserModel>(context, listen: false).loginFirebaseSMS(
-          phoneNumber: user.phoneNumber!.replaceAll('+', ''),
-          success: (user) {
-            _stopAnimation();
-            NavigateTools.navigateAfterLogin(user, context);
-          },
-          fail: (message) {
-            _stopAnimation();
-            _failMessage(message, context);
-          },
-        );
-      }
+      // if (widget.callback != null) {
+      //   await _stopAnimation();
+      //   widget.callback!(_pinCodeController.text, user);
+      //   Navigator.pop(context);
+      // } else {
+      //   await Provider.of<UserModel>(context, listen: false).loginFirebaseSMS(
+      //     phoneNumber: user.phoneNumber!.replaceAll('+', ''),
+      //     success: (user) {
+      //       _stopAnimation();
+      //       NavigateTools.navigateAfterLogin(user, context);
+      //     },
+      //     fail: (message) {
+      //       _stopAnimation();
+      //       _failMessage(message, context);
+      //     },
+      //   );
+      // }
+       print(user);
+      //print(widget.verId!);
+       //print(user!.uid);
+      // User verified successfully!
+      print('Phone number verifieddddddddddddddddddddddddddddddddddddddddddddddddddddddd!');
+      Tools.showSnackBar(
+        ScaffoldMessenger.of(context), "تم  التحقق");
+       _stopAnimation();
+       Navigator.of(context).pop(true);
     } else {
       await _stopAnimation();
-      _failMessage(S.of(context).invalidSMSCode, context);
+      //_failMessage(S.of(context).invalidSMSCode, context);
+      Tools.showSnackBar(
+        ScaffoldMessenger.of(context), "يرجى ادخال الكود بشكل صحيح");
+     // Navigator.pop(context);
     }
   }
 }

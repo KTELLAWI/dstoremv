@@ -21,7 +21,13 @@ import '../../../widgets/common/common_safe_area.dart';
 import '../../../widgets/common/flux_image.dart';
 import '../../../widgets/common/place_picker.dart';
 import '../choose_address_screen.dart';
+import '../widgets/payment_methods.dart';
 import "global.dart";
+import 'otp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../login_sms/verifyOrder.dart';
+
+// import '../../../modules/login_sms/verify.dart';
 
 part 'shipping_address_extension.dart';
 
@@ -79,6 +85,8 @@ class _ShippingAddressState extends State<ShippingAddress> {
   bool isState = false;
 
   PhoneNumber? initialPhoneNumber;
+   
+  bool isVerificationInProgress = true;
 
   @override
   void dispose() {
@@ -165,15 +173,18 @@ class _ShippingAddressState extends State<ShippingAddress> {
             if (phoneNumber?.isNotEmpty ?? false) {
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
-                  dialCode: '+964',  // Iraq country dial code
-                  isoCode: 'IQ',   
+                dialCode:  kPhoneNumberConfig.dialCodeDefault,
+                  isoCode: kPhoneNumberConfig.countryCodeDefault,
                   phoneNumber: phoneNumber,
                 ),
               );
             }
+          
           } catch (e, trace) {
             printError(e, trace);
           }
+
+          
         }
 
         /// Load country list.
@@ -224,6 +235,111 @@ class _ShippingAddressState extends State<ShippingAddress> {
       },
     );
   }
+    Future<void> verifyPhoneNumber(BuildContext context, String phoneNumber) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text("جاري ارسال الكود لتأكيد رقم الموبايل قبل اتمام الطلب"),
+              ],
+            ),
+          );
+        },
+      );
+_sendVerificationCode( );
+       
+   
+  }
+  Future<void> _sendVerificationCode() async {
+  //Navigator.of(context).pop();
+  print(initialPhoneNumber2);
+  try {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber:initialPhoneNumber2,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // Sign the user in automatically if auto-retrieval is successful
+       // await FirebaseAuth.instance.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        // Handle verification failed error
+        print(e.message);
+            Navigator.pop(context);
+
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+                  Navigator.pop(context);
+        // Save the verification ID for later use
+     //   _verificationId = verificationId;
+         print("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+        print(verificationId);
+
+        // Show a dialog to enter the verification code go to verify screen
+      final verifyed = await  Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VerifyCodeOrder(
+              verId: verificationId,
+               phoneNumber:initialPhoneNumber2 ,
+              // verifySuccessStream: viewModel.getStreamSuccess,
+              // resendToken: forceCodeResend,
+            ),
+          ),
+        );
+        if (verifyed == true )
+        setState((){
+          isVerificationCompleted=true;
+        });
+        // await showDialog(
+        //   barrierDismissible:false,
+        //   context: context,
+        //   builder: (context) => AlertDialog(
+        //     title: Text('من فضلك ادخل الكود'),
+        //     content: TextField(
+        //       onChanged: (value) {
+        //         // Store the entered verification code
+        //         _verificationCode = value;
+        //       },
+        //     ),
+        //     actions: [
+        //       TextButton(
+        //         onPressed: () async {
+        //           // Verify the phone number
+        //           await _verifyPhoneNumbera(paymentMethodModel,cartModel);
+        //           Navigator.pop(context);
+        //         },
+        //         child: Text('تاكيد'),
+        //       ),
+        //          TextButton(
+        //         onPressed: () async {
+        //           // Verify the phone number
+                 
+        //           Navigator.pop(context);
+        //         },
+        //         child: Text('رجوع'),
+        //       ),
+        //     ],
+        //   ),
+        // );
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        // Handle code auto-retrieval timeout
+        print('Code retrieval timed out. Please try again.');
+         /// showSnackbar timeout 
+             Navigator.pop(context);
+
+      },
+    );
+  } catch (e) {
+    print(e.toString());
+    Navigator.pop(context);
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -531,17 +647,12 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
                         if (currentFieldType == AddressFieldType.phoneNumber &&
                             kPhoneNumberConfig.enablePhoneNumberValidation) {
-                          return 
-                          // SizedBox(
-                          //    width: 200,
-                          //  //padding: const EdgeInsets.all( 1.0),
-                          //   child:
-                          //  Row(
-                          //   mainAxisSize:MainAxisSize.min,
-                          // children: [
-                           
-
-                           InternationalPhoneNumberInput(
+                              return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10),
+                               InternationalPhoneNumberInput(
                               /// Auto focus first field if it's empty.
                               autoFocus: index == 0 &&
                                   (currentFieldController?.text.isEmpty ??
@@ -567,13 +678,23 @@ class _ShippingAddressState extends State<ShippingAddress> {
                               },
                               onSaved: (value) {
                                 initialPhoneNumber2 = value.phoneNumber;
+                                initialPhoneNumber = value;
                                 onTextFieldSaved(
                                   value.phoneNumber,
                                   currentFieldType,
                                 );
                               },
-                              onInputChanged: (PhoneNumber number) {},
-                              onInputValidated: (value) => {},
+                              onInputChanged: (PhoneNumber number) {
+                                 initialPhoneNumber2 = number.phoneNumber;
+                              },
+                              onInputValidated: (value) => {
+                                // if(initialPhoneNumber != value)
+                                // {
+                                //  isVerificationCompleted= false,
+                                // }
+                                isVerificationInProgress=false,
+                              },
+                              isEnabled:isVerificationInProgress ,
                               spaceBetweenSelectorAndTextField: 0,
                               selectorConfig: SelectorConfig(
                                 enable:
@@ -588,19 +709,144 @@ class _ShippingAddressState extends State<ShippingAddress> {
                               selectorTextStyle:
                                   Theme.of(context).textTheme.titleMedium,
                               ignoreBlank: !(_configs[index]?.required ?? true),
-                               initialValue:   PhoneNumber(
-    dialCode: '+964',  // Iraq country dial code
-    isoCode: 'IQ',     // ISO code for Iraq
-    phoneNumber: _textControllers[AddressFieldType.phoneNumber]?.text.trim(),
-  ),
+                               initialValue:initialPhoneNumber == null ? PhoneNumber(isoCode: 'IQ') : initialPhoneNumber, //initialPhoneNumber,
+
                               formatInput: kPhoneNumberConfig.formatInput,
-                               countries: kPhoneNumberConfig.customCountryList,
                               locale: langCode,
                               searchBoxDecoration: InputDecoration(
                                   labelText: S
                                       .of(context)
                                       .searchByCountryNameOrDialCode),
-                            );
+                           
+                            ),
+                            SizedBox(height:3),
+                            Row(
+                                children:[
+                                 
+                                  ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          backgroundColor: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 0.0,
+                                        ),
+                                        onPressed: () async {
+                                           setState(() {
+                        isVerificationInProgress = true;
+                        isVerificationCompleted= false;
+                      });
+
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            // const Icon(
+                                            //   CupertinoIcons
+                                            //       .arrow_up_right_diamond,
+                                            //   size: 18,
+                                            // ),
+                                            const SizedBox(width: 10.0),
+                                            Text("تغيير الرقم"),
+                                          ],
+                                        ),
+                                      ),SizedBox(width:8),
+
+                                        (!isVerificationCompleted) ?  
+                                         ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          backgroundColor: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 0.0,
+                                        ),
+                                        onPressed: () async {
+
+                                         await verifyPhoneNumber(context,initialPhoneNumber2!);
+                                            setState(() {
+                     // isVerificationCompleted=true;
+                        isVerificationInProgress = false;
+                      });
+
+                                        },
+                                        child:Padding(
+                                          padding:EdgeInsets.all(5),
+                                          child:Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            // const Icon(
+                                            //   CupertinoIcons
+                                            //       .sms,
+                                            //   size: 18,
+                                            // ),
+                                            const SizedBox(width: 10.0),
+                                            Text("تحقق من الرقم باستخدام SMS"),
+                                          ],
+                                        ),
+                                        ) 
+                                      )
+                                      : SizedBox(),
+                         
+                                ]
+                            ),
+                              // (countries!.length == 1)
+                              //     ? Text(
+                              //         countryName,
+                              //         style: const TextStyle(fontSize: 18),
+                              //       )
+                              //     : GestureDetector(
+                              //         onTap: _openCountryPickerDialog,
+                              //         child: Column(
+                              //           children: [
+                              //             Padding(
+                              //               padding: const EdgeInsets.symmetric(
+                              //                   vertical: 20),
+                              //               child: Row(
+                              //                 crossAxisAlignment:
+                              //                     CrossAxisAlignment.center,
+                              //                 mainAxisAlignment:
+                              //                     MainAxisAlignment
+                              //                         .spaceBetween,
+                              //                 children: <Widget>[
+                              //                   Expanded(
+                              //                     child: Text(countryName,
+                              //                         style: const TextStyle(
+                              //                             fontSize: 17.0)),
+                              //                   ),
+                              //                   const Icon(
+                              //                       Icons.arrow_drop_down)
+                              //                 ],
+                              //               ),
+                              //             ),
+                              //             const Divider(
+                              //               height: 1,
+                              //               color: kGrey900,
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                            ],
+                          );
+                          // return 
+                         
+                          
+                          //  Row(
+                          
+
+
+                          //    mainAxisSize:MainAxisSize.max,
+                          //  children: [
+                           
+
+                          
+                          //  ]
+                                
+                          //   );
                            
                          
                           

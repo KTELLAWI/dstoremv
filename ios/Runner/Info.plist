@@ -81,11 +81,18 @@
 			</array>
 		</dict>
 		<dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>app-1-187089727378-ios-561baad1581de6f1e41b4b</string>
+    </array>
+  </dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.412823237422-pf5dr3f75n6r201u24ocioin54u3cseq</string>
+				<string>com.googleusercontent.apps.187089727378-r4b096g2budujlnq78n6rfollurt85dl</string>
+				 <string>app-1-187089727378-ios-561baad1581de6f1e41b4b</string>
 			</array>
 		</dict>
 		<dict>
