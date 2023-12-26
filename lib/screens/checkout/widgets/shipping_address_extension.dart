@@ -13,7 +13,7 @@ extension on _ShippingAddressState {
     _textControllers[AddressFieldType.lastName]?.text =
         address?.lastName?.trim() ?? '';
     _textControllers[AddressFieldType.phoneNumber]?.text =
-        address?.phoneNumber?.trim() ?? '';
+        address?.phoneNumber?.trim() ??"";
     _textControllers[AddressFieldType.email]?.text =
         address?.email?.trim() ?? '';
   }
@@ -154,7 +154,7 @@ else{
       value = address!.state;
     }
       if (firstState == null) {
-      value =states![0].id;
+      value =states![1].id;
       address!.state=states![0].id.toString();
        refresh();
     }

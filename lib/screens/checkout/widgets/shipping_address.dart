@@ -170,7 +170,17 @@ class _ShippingAddressState extends State<ShippingAddress> {
           try {
             final phoneNumber =
                 _textControllers[AddressFieldType.phoneNumber]?.text.trim();
-            if (phoneNumber?.isNotEmpty ?? false) {
+    //             if (initialPhoneNumber2 != "" && initialPhoneNumber2 != null){
+    //               final PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil();
+    //                PhoneNumber phoneNumber = await phoneNumberUtil.parse(initialPhoneNumber2);
+    //                initialPhoneNumber = PhoneNumber(
+    //   dialCode: phoneNumber.dialCode ?? kPhoneNumberConfig.dialCodeDefault,
+    //   isoCode: phoneNumber.isoCode ?? kPhoneNumberConfig.countryCodeDefault,
+    //   phoneNumber: initialPhoneNumber2,
+    // );
+
+    //             } 
+            if  (phoneNumber?.isNotEmpty ?? false) {
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
                 dialCode:  kPhoneNumberConfig.dialCodeDefault,
@@ -294,6 +304,8 @@ _sendVerificationCode( );
         if (verifyed == true )
         setState((){
           isVerificationCompleted=true;
+          address!.phoneNumber = initialPhoneNumber2;
+          initialPhoneNumber2="";
         });
         // await showDialog(
         //   barrierDismissible:false,
@@ -686,6 +698,8 @@ _sendVerificationCode( );
                               },
                               onInputChanged: (PhoneNumber number) {
                                  initialPhoneNumber2 = number.phoneNumber;
+                                  initialPhoneNumber = number;
+                                  isVerificationInProgress=false;
                               },
                               onInputValidated: (value) => {
                                 // if(initialPhoneNumber != value)
@@ -709,7 +723,7 @@ _sendVerificationCode( );
                               selectorTextStyle:
                                   Theme.of(context).textTheme.titleMedium,
                               ignoreBlank: !(_configs[index]?.required ?? true),
-                               initialValue:initialPhoneNumber == null ? PhoneNumber(isoCode: 'IQ') : initialPhoneNumber, //initialPhoneNumber,
+                               initialValue:initialPhoneNumber == null ? PhoneNumber(isoCode: 'IQ') :initialPhoneNumber,
 
                               formatInput: kPhoneNumberConfig.formatInput,
                               locale: langCode,

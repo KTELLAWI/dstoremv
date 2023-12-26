@@ -83,7 +83,7 @@
 		<dict>
     <key>CFBundleURLSchemes</key>
     <array>
-      <string>app-1-187089727378-ios-561baad1581de6f1e41b4b</string>
+      <string>1:412823237422:ios:8947f503f8cb2000fb40bf</string>
     </array>
   </dict>
 		<dict>
@@ -91,8 +91,10 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.187089727378-r4b096g2budujlnq78n6rfollurt85dl</string>
-				 <string>app-1-187089727378-ios-561baad1581de6f1e41b4b</string>
+				<!-- <string>com.googleusercontent.apps.187089727378-r4b096g2budujlnq78n6rfollurt85dl</string> -->
+								<string>com.googleusercontent.apps.412823237422-pf5dr3f75n6r201u24ocioin54u3cseq</string>
+
+				 <string>1:412823237422:ios:8947f503f8cb2000fb40bf</string>
 			</array>
 		</dict>
 		<dict>

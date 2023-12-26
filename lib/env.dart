@@ -361,11 +361,11 @@ Map<String, dynamic> environment = {
     "showRequestNotification": true,
 
     "versionCheck": {
-      "enable": false,
+      "enable": true,
       "iOSAppStoreCountry": "US",
     },
     "inAppUpdateForAndroid": {
-      "enable": false,
+      "enable": true,
       // "flexible, immediate"
       "typeUpdate": "flexible",
     },
@@ -1011,7 +1011,7 @@ Map<String, dynamic> environment = {
     /// Enable the Google Maps picker from Billing Address.
     "allowSearchingAddress": true,
 
-    "GuestCheckout": true,
+    "GuestCheckout": false,
 
     /// Enable Payment option
     "EnableOnePageCheckout": false,
