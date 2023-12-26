@@ -7,6 +7,9 @@ import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
+import 'package:phone_number/phone_number.dart' show PhoneNumberUtil;
+
+
 
 import '../../../common/config.dart';
 import '../../../common/config/models/address_field_config.dart';
@@ -86,7 +89,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
   PhoneNumber? initialPhoneNumber;
    
-  bool isVerificationInProgress = true;
+  bool isVerificationInProgress = false;
 
   @override
   void dispose() {
@@ -181,11 +184,14 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
     //             } 
             if  (phoneNumber?.isNotEmpty ?? false) {
+             
+              final iniphoneNumber = await PhoneNumberUtil().parse(phoneNumber!);
+
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
-                dialCode:  kPhoneNumberConfig.dialCodeDefault,
-                  isoCode: kPhoneNumberConfig.countryCodeDefault,
-                  phoneNumber: phoneNumber,
+                dialCode: iniphoneNumber.countryCode ?? kPhoneNumberConfig.dialCodeDefault,
+                  isoCode: iniphoneNumber.regionCode ?? kPhoneNumberConfig.countryCodeDefault,
+                  phoneNumber: iniphoneNumber.nationalNumber ?? phoneNumber,
                 ),
               );
             }
@@ -708,7 +714,7 @@ _sendVerificationCode( );
                                 // }
                                 isVerificationInProgress=false,
                               },
-                              isEnabled:isVerificationInProgress ,
+                              isEnabled:currentFieldController!.text!.isEmpty ? true : isVerificationInProgress ,
                               spaceBetweenSelectorAndTextField: 0,
                               selectorConfig: SelectorConfig(
                                 enable:
@@ -734,9 +740,10 @@ _sendVerificationCode( );
                            
                             ),
                             SizedBox(height:3),
+                            
                             Row(
                                 children:[
-                                 
+                                 if(!isVerificationInProgress)
                                   ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: Theme.of(context)
@@ -766,7 +773,8 @@ _sendVerificationCode( );
                                             Text("تغيير الرقم"),
                                           ],
                                         ),
-                                      ),SizedBox(width:8),
+                                      ),
+                                      SizedBox(width:8),
 
                                         (!isVerificationCompleted) ?  
                                          ElevatedButton(

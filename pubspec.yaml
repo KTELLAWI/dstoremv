@@ -16,7 +16,11 @@ dependencies:
     sdk: flutter
 
   inspireui: 1.7.0
-  flutter_libphonenumber: ^2.1.5
+  # flutter_libphonenumber: 1.4.0
+  phone_number:
+    git:
+      url: https://github.com/flutter-form-builder-ecosystem/phone_number.git
+      ref: 9cd5ea09eb124f7c5cf602d82d4bc84b72a1471e
 
 
   flutterflow:
@@ -212,7 +216,7 @@ dependencies:
   ### Uncomment file lib/common/tools/in_app_update_for_android.dart
   in_app_update: 4.1.4
 
-dev_dependencies:
+# dev_dependencies:
   flutter_lints: 2.0.2
   flutter_native_splash: 2.3.2
   build_runner: 2.4.6
