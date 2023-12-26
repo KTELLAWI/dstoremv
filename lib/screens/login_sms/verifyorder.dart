@@ -392,6 +392,9 @@ Navigator.pop(context);
   }
 
   Future<void> _signInWithCredential(credential) async {
+  try{
+
+ 
     final user = await Services()
         .firebase
         .loginFirebaseCredential(credential: credential);
@@ -429,5 +432,11 @@ Navigator.pop(context);
         ScaffoldMessenger.of(context), "يرجى ادخال الكود بشكل صحيح");
      // Navigator.pop(context);
     }
+     }catch(e){
+      await _stopAnimation();
+      _failMessage(S.of(context).invalidSMSCode, context);
+      //Navigator.pop(context);
+
+     }
   }
 }

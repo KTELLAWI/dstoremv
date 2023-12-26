@@ -155,7 +155,7 @@ else{
     }
       if (firstState == null) {
       value =states![1].id;
-      address!.state=states![0].id.toString();
+      address!.state=states![1].id.toString();
        refresh();
     }
     return DropdownButton(
