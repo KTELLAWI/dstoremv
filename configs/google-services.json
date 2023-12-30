@@ -56,10 +56,11 @@
               "client_type": 3
             },
             {
-              "client_id": "817220619220-rrle7pvhvlc9g3fpr71pdc8u4aba5mmi.apps.googleusercontent.com",
+              "client_id": "817220619220-clm2kvucmcobuidgrf0vldgmr09qugia.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.inpaket.inpaket"
+                "bundle_id": "com.inpaket.store",
+                "app_store_id": "6447787296"
               }
             }
           ]

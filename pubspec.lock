@@ -122,7 +122,7 @@ packages:
     source: hosted
     version: "2.2.0"
   build_runner:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: build_runner
       sha256: "10c6bcdbf9d049a0b666702cf1cee4ddfdc38f02a19d35ae392863b47519848b"
@@ -768,46 +768,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  flutter_libphonenumber:
-    dependency: "direct main"
-    description:
-      name: flutter_libphonenumber
-      sha256: "97d34b5d36ca533ca05c1f4f4686095f22214d8752b39969cbce4b102573b664"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.5"
-  flutter_libphonenumber_android:
-    dependency: transitive
-    description:
-      name: flutter_libphonenumber_android
-      sha256: "95e0379daa458e273cef4448db7ead8df5481c40d660c261cc74eff89c394b40"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
-  flutter_libphonenumber_ios:
-    dependency: transitive
-    description:
-      name: flutter_libphonenumber_ios
-      sha256: e10ac1e4f9045c7f6ba1e6475439b5f83429096a3e5f1afd9d46130fab94c4da
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.4"
-  flutter_libphonenumber_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_libphonenumber_platform_interface
-      sha256: "5ae1d2f8f19f53221b5f4d87e752a5799b7bf2670c970b3edbb73f26895442dc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
-  flutter_libphonenumber_web:
-    dependency: transitive
-    description:
-      name: flutter_libphonenumber_web
-      sha256: "271159e874f7a3b3b7a5090ff4323e6f4b0dc7552b54805e145f5e07ef01e930"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   flutter_linkify:
     dependency: "direct main"
     description:
@@ -817,7 +777,7 @@ packages:
     source: hosted
     version: "6.0.0"
   flutter_lints:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_lints
       sha256: "2118df84ef0c3ca93f96123a616ae8540879991b8b57af2f81b76a7ada49b2a4"
@@ -870,7 +830,7 @@ packages:
     source: hosted
     version: "0.0.6+1"
   flutter_native_splash:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_native_splash
       sha256: ecff62b3b893f2f665de7e4ad3de89f738941fcfcaaba8ee601e749efafa4698
@@ -1041,7 +1001,7 @@ packages:
     source: path
     version: "1.0.0+1"
   freezed:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: freezed
       sha256: "2edb9ef971d0f803860ecd9084afd48c717d002141ad77b69be3e976bee7190e"
@@ -1562,7 +1522,7 @@ packages:
     source: hosted
     version: "4.8.1"
   json_serializable:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: json_serializable
       sha256: aa1f5a8912615733e0fdc7a02af03308933c93235bdc8d50d0b0c8a8ccb0b969
@@ -1955,6 +1915,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
+  phone_number:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "9cd5ea09eb124f7c5cf602d82d4bc84b72a1471e"
+      resolved-ref: "9cd5ea09eb124f7c5cf602d82d4bc84b72a1471e"
+      url: "https://github.com/flutter-form-builder-ecosystem/phone_number.git"
+    source: git
+    version: "2.0.1"
   photo_manager:
     dependency: "direct main"
     description:

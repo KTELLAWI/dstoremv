@@ -184,8 +184,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
     //             } 
             if  (phoneNumber?.isNotEmpty ?? false) {
-             
-              final iniphoneNumber = await PhoneNumberUtil().parse(phoneNumber!);
+            
+                          print("PhoneNumberrrrrrrrrrrggggggggggggggggggggrrrrrr");
+
+             final pn= "+"+ phoneNumber!;
+              final iniphoneNumber = await PhoneNumberUtil().parse(pn);
+              print("PhoneNumberrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+              print(iniphoneNumber.nationalNumber.toString());
 
               initialPhoneNumber = await PhoneNumber.getParsablePhoneNumber(
                 PhoneNumber(
@@ -350,6 +355,8 @@ _sendVerificationCode( );
         print('Code retrieval timed out. Please try again.');
          /// showSnackbar timeout 
              Navigator.pop(context);
+             Tools.showSnackBar(
+        ScaffoldMessenger.of(context), "فشل ارسال الكود  يرجى المحاولة مرة اخرى");
 
       },
     );
@@ -729,7 +736,7 @@ _sendVerificationCode( );
                               selectorTextStyle:
                                   Theme.of(context).textTheme.titleMedium,
                               ignoreBlank: !(_configs[index]?.required ?? true),
-                               initialValue:initialPhoneNumber == null ? PhoneNumber(isoCode: 'IQ') :initialPhoneNumber,
+                               initialValue:currentFieldController!.text!.isEmpty ? PhoneNumber(isoCode: 'IQ') :initialPhoneNumber,
 
                               formatInput: kPhoneNumberConfig.formatInput,
                               locale: langCode,

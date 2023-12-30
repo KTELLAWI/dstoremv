@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>412823237422-pf5dr3f75n6r201u24ocioin54u3cseq.apps.googleusercontent.com</string>
+	<string>817220619220-clm2kvucmcobuidgrf0vldgmr09qugia.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.412823237422-pf5dr3f75n6r201u24ocioin54u3cseq</string>
+	<string>com.googleusercontent.apps.817220619220-clm2kvucmcobuidgrf0vldgmr09qugia</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>412823237422-3d7l4tv9d524qds81062g6vfr588u9rg.apps.googleusercontent.com</string>
+	<string>817220619220-0f0rh0k4oc7dt5k94irqghdsfbp3iiub.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA2BWeKRw-D7zHLnvVVoi6ahOqyucoa9s0</string>
+	<string>AIzaSyBaUPAq-pxzuuxZEzJLmTpaiI8YALA1jhc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>412823237422</string>
+	<string>817220619220</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.inspireui.mstore.flutter</string>
+	<string>com.inpaket.store</string>
 	<key>PROJECT_ID</key>
-	<string>fluxstore-inspireui</string>
+	<string>inpaket-otp</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fluxstore-inspireui.appspot.com</string>
+	<string>inpaket-otp.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:412823237422:ios:8947f503f8cb2000fb40bf</string>
+	<string>1:817220619220:ios:0f3b23105da47c4972e441</string>
 	<key>DATABASE_URL</key>
-	<string>https://fluxstore-inspireui.firebaseio.com</string>
+	<string>https://inpaket-otp-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

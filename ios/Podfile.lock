@@ -817,9 +817,6 @@ PODS:
     - OrderedSet (~> 5.0)
   - flutter_keyboard_visibility (0.0.1):
     - Flutter
-  - flutter_libphonenumber_ios (1.1.4):
-    - Flutter
-    - PhoneNumberKit/PhoneNumberKitCore (= 3.6.6)
   - flutter_local_notifications (0.0.1):
     - Flutter
   - flutter_localization (0.0.1):
@@ -1045,6 +1042,9 @@ PODS:
     - Flutter
   - permission_handler_apple (9.1.1):
     - Flutter
+  - phone_number (2.0.1):
+    - Flutter
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.6.6)
   - PhoneNumberKit (3.6.6):
     - PhoneNumberKit/PhoneNumberKitCore (= 3.6.6)
     - PhoneNumberKit/UIKit (= 3.6.6)
@@ -1109,7 +1109,6 @@ DEPENDENCIES:
   - flutter_facebook_auth (from `.symlinks/plugins/flutter_facebook_auth/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
-  - flutter_libphonenumber_ios (from `.symlinks/plugins/flutter_libphonenumber_ios/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_localization (from `.symlinks/plugins/flutter_localization/ios`)
   - flutter_native_image (from `.symlinks/plugins/flutter_native_image/ios`)
@@ -1132,6 +1131,7 @@ DEPENDENCIES:
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - paytm_allinonesdk (from `.symlinks/plugins/paytm_allinonesdk/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - phone_number (from `.symlinks/plugins/phone_number/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - rate_my_app (from `.symlinks/plugins/rate_my_app/ios`)
@@ -1224,8 +1224,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
   flutter_keyboard_visibility:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
-  flutter_libphonenumber_ios:
-    :path: ".symlinks/plugins/flutter_libphonenumber_ios/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_localization:
@@ -1270,6 +1268,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/paytm_allinonesdk/ios"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
+  phone_number:
+    :path: ".symlinks/plugins/phone_number/ios"
   photo_manager:
     :path: ".symlinks/plugins/photo_manager/ios"
   qr_code_scanner:
@@ -1335,7 +1335,6 @@ SPEC CHECKSUMS:
   flutter_facebook_auth: 47c7a8594f2d6864618e30b5a6d59dff0d2e59fe
   flutter_inappwebview: 3d32228f1304635e7c028b0d4252937730bbc6cf
   flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
-  flutter_libphonenumber_ios: 80bfe6d4d69334aaf36642c1b528615bfffe7c6a
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_localization: f43b18844a2b3d2c71fd64f04ffd6b1e64dd54d4
   flutter_native_image: 9c0b7451838484458e5b0fae007b86a4c2d4bdfe
@@ -1375,6 +1374,7 @@ SPEC CHECKSUMS:
   path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
   paytm_allinonesdk: 40f4db5d33dc7960b4e87cd8e643f8cafdfca180
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
+  phone_number: 567a167933138df1080eb0d8ecb0ea44f1dee1ed
   PhoneNumberKit: 5b1be7ee4955dfeeb855f51eecdd829ab24b3484
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
