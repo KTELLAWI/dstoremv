@@ -2,9 +2,8 @@
 Map<String, dynamic> environment = {
   "appConfig": "https://inpaket.com/wp-content/uploads/flutter_config_files/config_ar.json",
   "serverConfig": {
-    'type': 'woo',
+    'type': 'wcfm',
    "url": "https://inpaket.com",
-    "type": "woo",
     "consumerKey": "ck_fb37943cc148765fdbd5246e6a063f745c48b12e",
     "consumerSecret": "cs_3d251690870957540c40ccf4fa8be4015a870ccb"
 
@@ -156,16 +155,26 @@ Map<String, dynamic> environment = {
       /// 100 cents = 1 usd
     },
     "Currencies": [
-      // {
-      //   "symbol": "\$",
-      //   "decimalDigits": 2,
-      //   "symbolBeforeTheNumber": true,
-      //   "currency": "USD",
-      //   "currencyCode": "USD",
-      //   "smallestUnitRate": 100,
+      {
+        "symbol": "\$",
+        "decimalDigits": 2,
+        "symbolBeforeTheNumber": true,
+        "currency": "USD",
+        "currencyCode": "USD",
+        "smallestUnitRate": 100,
 
-      //   /// 100 cents = 1 usd
-      // },
+        /// 100 cents = 1 usd
+      },
+       {
+     "symbol": "IQD ",
+        "smallestUnitRate": 1,
+        "currency": "IQD",
+        "decimalDigits": 0,
+        "symbolBeforeTheNumber": true,
+        "currencyCode": "iqd"
+
+      /// 100 cents = 1 usd
+    },
       // {
       //   "symbol": "₹",
       //   "decimalDigits": 0,
@@ -1512,7 +1521,7 @@ Map<String, dynamic> environment = {
     /// When it is set to false, these are the cases:
     /// - For WCFM - It will set the registered role to subscribe with the meta "wcfm_membership_application_status": "pending".
     /// - For Dokan - It still keeps the registered role as "seller" but the selling capability will be set to false. The meta for it is "dokan_enable_selling" : false
-    "EnableAutoApplicationApproval": false,
+    "EnableAutoApplicationApproval": true,
 
     "BannerFit": "cover",
     "ExpandStoreLocationByDefault": true,

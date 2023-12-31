@@ -53,9 +53,12 @@ class VendorOnBoardingServices {
 
   Future<String> getAddressFromLocation(double? lat, double? long) async {
     var response = await http.get(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=${isIos ? kGoogleApiKey.ios : kGoogleApiKey.android}'
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=AIzaSyCJ9zjN2U8pNQff9Xd-rMVEfkuYieAFF-0'
             .toUri()!);
     var result = jsonDecode(response.body)['results'];
     return result.isNotEmpty ? result.first['formatted_address'] : '';
   }
 }
+
+
+// ${isIos ? kGoogleApiKey.ios : kGoogleApiKey.android}

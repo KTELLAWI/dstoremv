@@ -57,12 +57,12 @@ extension AppBarItemConfigExt on AppBarItemConfig {
       MaterialPageRoute(
         builder: (context) => isDesktop
             ? const PlatformError()
-            : PlacePicker(
-                kIsWeb
-                    ? kGoogleApiKey.web
-                    : isIos
-                        ? kGoogleApiKey.ios
-                        : kGoogleApiKey.android,
+            : PlacePicker("AIzaSyCJ9zjN2U8pNQff9Xd-rMVEfkuYieAFF-0"
+                // kIsWeb
+                //     ? kGoogleApiKey.web
+                //     : isIos
+                //         ? kGoogleApiKey.ios
+                //         : kGoogleApiKey.android,
               ),
       ),
     ) as LocationResult?;

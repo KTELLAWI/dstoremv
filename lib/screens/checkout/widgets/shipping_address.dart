@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:phone_number/phone_number.dart' show PhoneNumberUtil;
+import '../../../common/tools.dart';
 
 
 
@@ -502,102 +503,103 @@ _sendVerificationCode( );
                             AddressFieldType.searchAddress) {
                           if (kPaymentConfig.allowSearchingAddress &&
                               kGoogleApiKey.isNotEmpty) {
-                            return SizedBox();
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 10.0),
-                            //   child: Row(
-                            //     children: [
-                            //       Expanded(
-                            //         child: ButtonTheme(
-                            //           height: 60,
-                            //           child: ElevatedButton(
-                            //             style: ElevatedButton.styleFrom(
-                            //               foregroundColor: Theme.of(context)
-                            //                   .colorScheme
-                            //                   .secondary,
-                            //               backgroundColor: Theme.of(context)
-                            //                   .primaryColorLight,
-                            //               elevation: 0.0,
-                            //             ),
-                            //             onPressed: () async {
+                            return 
+                            //SizedBox();
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: ButtonTheme(
+                                      height: 60,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          backgroundColor: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 0.0,
+                                        ),
+                                        onPressed: () async {
                                           
                                          
-                            //               final result =
-                            //                   await Navigator.of(context).push(
-                            //                 MaterialPageRoute(
-                            //                   builder: (context) => PlacePicker(
-                            //                     //"AIzaSyCJ9zjN2U8pNQff9Xd-rMVEfkuYieAFF-0"
-                            //                     kIsWeb
-                            //                         ? kGoogleApiKey.web
-                            //                         : isIos
-                            //                             ? kGoogleApiKey.ios
-                            //                             : kGoogleApiKey.android,
-                            //                   ),
-                            //                 ),
-                            //               );
+                                          final result =
+                                              await Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) => PlacePicker(
+                                                "AIzaSyCJ9zjN2U8pNQff9Xd-rMVEfkuYieAFF-0"
+                                                // kIsWeb
+                                                //     ? kGoogleApiKey.web
+                                                //     : isIos
+                                                //         ? kGoogleApiKey.ios
+                                                //         : kGoogleApiKey.android,
+                                              ),
+                                            ),
+                                          );
 
-                            //               if (result is LocationResult) {
-                            //                 print("sultssssssssssssssssssssss");
-                            //                  print(result.name);
-                            //                  print(result.zip);
-                            //                  print(result.city);
-                            //                  print(result.state);
-                            //                  print(result.country);
-                            //                  print(result.street);
-                            //                  print(result.locality);
+                                          if (result is LocationResult) {
+                                            print("sultssssssssssssssssssssss");
+                                             print(result.name);
+                                             print(result.zip);
+                                             print(result.city);
+                                             print(result.state);
+                                             print(result.country);
+                                             print(result.street);
+                                             print(result.locality);
 
                                              
-                            //                 address!.country = result.country;
-                            //                 address!.street = result.street;
-                            //                 address!.state = result.state;
-                            //                 address!.city = result.city;
-                            //                 address!.zipCode = result.zip;
-                            //                 if (result.latLng?.latitude !=
-                            //                         null &&
-                            //                     result.latLng?.latitude !=
-                            //                         null) {
-                            //                   address!.mapUrl =
-                            //                       'https://maps.google.com/maps?q=${result.latLng?.latitude},${result.latLng?.longitude}&output=embed';
-                            //                   address!.latitude = result
-                            //                       .latLng?.latitude
-                            //                       .toString();
-                            //                   address!.longitude = result
-                            //                       .latLng?.longitude
-                            //                       .toString();
-                            //                 }
+                                            address!.country = result.country;
+                                            address!.street = result.street;
+                                            address!.state = result.state;
+                                            address!.city = result.city;
+                                            address!.zipCode = result.zip;
+                                            if (result.latLng?.latitude !=
+                                                    null &&
+                                                result.latLng?.latitude !=
+                                                    null) {
+                                              address!.mapUrl =
+                                                  'https://maps.google.com/maps?q=${result.latLng?.latitude},${result.latLng?.longitude}&output=embed';
+                                              address!.latitude = result
+                                                  .latLng?.latitude
+                                                  .toString();
+                                              address!.longitude = result
+                                                  .latLng?.longitude
+                                                  .toString();
+                                            }
 
-                            //                 loadAddressFields(address);
-                            //                 final c = Country(
-                            //                     id: result.country,
-                            //                     name: result.country);
-                            //                 states = await Services()
-                            //                     .widget
-                            //                     .loadStates(c);
-                            //                 setState(() {});
-                            //               }
-                            //             },
-                            //             child: Row(
-                            //               mainAxisAlignment:
-                            //                   MainAxisAlignment.center,
-                            //               children: <Widget>[
-                            //                 const Icon(
-                            //                   CupertinoIcons
-                            //                       .arrow_up_right_diamond,
-                            //                   size: 18,
-                            //                 ),
-                            //                 const SizedBox(width: 10.0),
-                            //                 Text(S
-                            //                     .of(context)
-                            //                     .searchingAddress
-                            //                     .toUpperCase()),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // );
+                                            loadAddressFields(address);
+                                            final c = Country(
+                                                id: result.country,
+                                                name: result.country);
+                                            states = await Services()
+                                                .widget
+                                                .loadStates(c);
+                                            setState(() {});
+                                          }
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            const Icon(
+                                              CupertinoIcons
+                                                  .arrow_up_right_diamond,
+                                              size: 18,
+                                            ),
+                                            const SizedBox(width: 10.0),
+                                            Text(S
+                                                .of(context)
+                                                .searchingAddress
+                                                .toUpperCase()),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
                           }
                           return const SizedBox();
                         }
