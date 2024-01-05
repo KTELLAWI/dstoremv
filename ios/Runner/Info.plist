@@ -81,12 +81,6 @@
 			</array>
 		</dict>
 		<dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>1:817220619220:ios:0f3b23105da47c4972e441</string>
-    </array>
-  </dict>
-		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
@@ -94,7 +88,7 @@
 				<!-- <string>com.googleusercontent.apps.187089727378-r4b096g2budujlnq78n6rfollurt85dl</string> -->
 								<string>com.googleusercontent.apps.817220619220-clm2kvucmcobuidgrf0vldgmr09qugia</string>
 
-				 <string>1:817220619220:ios:0f3b23105da47c4972e441</string>
+				 <!-- <string>1:817220619220:ios:0f3b23105da47c4972e441</string> -->
 			</array>
 		</dict>
 		<dict>
