@@ -110,20 +110,22 @@ extension on _ShippingAddressState {
   /// on tap to Next Button
   void _onNext() {
             
-      if (_formKey.currentState!.validate() && isState == false && isVerificationCompleted ) {
+      if (_formKey.currentState!.validate() && isState == false ) {
         _formKey.currentState!.save();
         Provider.of<CartModel>(context, listen: false).setAddress(address);
         _loadShipping(beforehand: false);
         widget.onNext!();
-      } else {
-        if(!isVerificationCompleted) {
-FlashHelper.errorMessage(
-                    context,
-                    message: 
-    "يجب تأكيد الرقم باستخدام SMS",
-                  );
-            }
-else{
+      } 
+      else {
+//         && isVerificationCompleted 
+//         if(!isVerificationCompleted) {
+// FlashHelper.errorMessage(
+//                     context,
+//                     message: 
+//     "يجب تأكيد الرقم باستخدام SMS",
+//                   );
+//             }
+//else{
 
 
         FlashHelper.errorMessage(
@@ -131,7 +133,7 @@ else{
           message: S.of(context).pleaseInput,
         );
         }
-      }
+      //}
     }
 
 
@@ -452,18 +454,15 @@ else{
                     //print(isVerificationCompleted);
                 if (!checkToSave()) return;
                 if (_formKey.currentState!.validate() ) {
-                  if(isVerificationCompleted == true)
-                  {_formKey.currentState!.save();
+                  
+                  
+                  
+                    _formKey.currentState!.save();
                   Provider.of<CartModel>(context, listen: false)
                       .setAddress(address);
-                  saveDataToLocal();}
-                  else{
-                     FlashHelper.errorMessage(
-                    context,
-                    message: 
-    "يجب تأكيد الرقم باستخدام SMS",
-                  );
-                  }
+                  saveDataToLocal();
+                 
+        
                 } else {
                   
  FlashHelper.errorMessage(
