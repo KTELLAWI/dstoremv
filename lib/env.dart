@@ -1041,7 +1041,7 @@ Map<String, dynamic> environment = {
     "ShowOrderNotes": true,
 
     /// Show Refund and Cancel button on Order Detail
-    "EnableRefundCancel": true,
+    "EnableRefundCancel": false,
 
     /// If the order completed date is after this period (days), the refund button will be hidden.
     "RefundPeriod": 7,

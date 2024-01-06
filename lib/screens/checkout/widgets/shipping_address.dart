@@ -291,7 +291,7 @@ _sendVerificationCode( );
       verificationFailed: (FirebaseAuthException e) {
         // Handle verification failed error
         print(e.message);
-            Navigator.pop(context);
+           // Navigator.pop(context);
 
       },
       codeSent: (String verificationId, int? resendToken) async {
@@ -355,9 +355,9 @@ _sendVerificationCode( );
         // Handle code auto-retrieval timeout
         print('Code retrieval timed out. Please try again.');
          /// showSnackbar timeout 
-             Navigator.pop(context);
-             Tools.showSnackBar(
-        ScaffoldMessenger.of(context), "فشل ارسال الكود  يرجى المحاولة مرة اخرى");
+        //      Navigator.pop(context);
+        //      Tools.showSnackBar(
+        // ScaffoldMessenger.of(context), "فشل ارسال الكود  يرجى المحاولة مرة اخرى");
 
       },
     );
